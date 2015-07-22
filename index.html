@@ -2,10 +2,12 @@
 <html>
 <head>
 <title>Emacs Configurations</title>
-<!-- 2015-07-21 Tue 20:44 -->
+<!-- 2015-07-22 Wed 10:51 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="Zhitao Gong">
+<meta name="description" content="Emacs configurations written in Orgmode.">
+<meta name="keywords" content="emacs,orgmode,literal programming,emacs-lisp,org">
 <link rel="stylesheet" href="normalize.css" type="text/css" />
 <link rel="stylesheet" href="https://gongzhitaao.github.io/orgcss/org.css" type="text/css" />
 </head>
@@ -60,13 +62,13 @@ after a while.
 
 <p>
 This is my Emacs configuration, stored in <code>conf.org</code> file with all
-these texts and loaded by <code>org-babel-load-file</code> from <code>init.el</code>.
-This is inspired by <a href="http://writequit.org/">Matthew Lee Hinman</a><sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup> in his <a href="http://writequit.org/org/settings.html">settings</a>.  This
-project is hosted with ♥ by Github, here is the <a href="https://github.com/gongzhitaao/dotemacs">repo</a>.
+these texts and loaded by <code>org-babel-load-file</code> from <code>init.el</code>.  This
+is inspired by <a href="http://writequit.org/">Matthew Lee Hinman</a><sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup> in his <a href="http://writequit.org/org/settings.html">settings</a>.  This project
+is hosted with ♥ by Github, here is the <a href="https://github.com/gongzhitaao/dotemacs">repo</a>.
 </p>
 
 <p>
-This file is last updated 2015-07-21 20:44.
+This file is last updated 2015-07-22 10:51.
 </p>
 </div>
 </div>
@@ -76,9 +78,9 @@ This file is last updated 2015-07-21 20:44.
 <div class="outline-text-2" id="text-sec:bootstrap">
 
 <p>
-I use <code>emacs.d/init.el</code> to bootstrap all my Emacs configurations.
-The only thing done in <code>init.el</code> is to load this file, <code>conf.org</code>,
-which includes all our documented configurations.
+I use <code>emacs.d/init.el</code> to bootstrap all my Emacs configurations.  The
+only thing done in <code>init.el</code> is to load this file, <code>conf.org</code>, which
+includes all our documented configurations.
 </p>
 
 <div class="org-src-container">
@@ -138,8 +140,7 @@ This is how I did, and probably what you are doing.
         (<span style="color: #de7fa8;">"org"</span> . <span style="color: #de7fa8;">"http://orgmode.org/elpa/"</span>)))
 (package-initialize)
 
-(or (file-exists-p package-user-dir)
-    (package-refresh-contents))
+(or (file-exists-p package-user-dir) (package-refresh-contents))
 </pre>
 </div>
 </li>
@@ -161,10 +162,10 @@ This is how I did, and probably what you are doing.
 It works.  But there is one thing I particularly do not like about
 the default packaging system: when updating packages, it
 <i>re-downloads</i> all the outdated package instead of retrieving only
-modified files like <code>git pull</code>.  It takes quite a while to
-uncompress and compile large packages, e.g., <code>ess</code> (Emacs Speaks
-Statistics), <code>org</code>, <code>org-plus-contrib</code> and etc.  And Emacs is
-blocked during this process since it is <i>single-threaded</i>!
+modified files like <code>git pull</code>.  It takes quite a while to uncompress
+and compile large packages, e.g., <code>ess</code> (Emacs Speaks Statistics),
+<code>org</code>, <code>org-plus-contrib</code> and etc.  And Emacs is blocked during this
+process since it is <i>single-threaded</i>!
 </p>
 </div>
 </div>
@@ -174,13 +175,13 @@ blocked during this process since it is <i>single-threaded</i>!
 <div class="outline-text-3" id="text-3-2">
 <p>
 Just found about <a href="http://cask.readthedocs.org/en/latest/index.html">Cask</a>, yet another package manager for Emacs.  See
-<a href="https://cask.readthedocs.org/en/latest/guide/introduction.html">Why Cask?</a> for the reason of switching to Cask.  All dependencies
-are stored in <code>Cask</code> under <code>.emacs.d/</code>.
+<a href="https://cask.readthedocs.org/en/latest/guide/introduction.html">Why Cask?</a> for the reason of switching to Cask.  All dependencies are
+stored in <code>Cask</code> under <code>.emacs.d/</code>.
 </p>
 
 <p>
-The contents of Cask is as follows (long list of packages are
-omitted for brevity).
+The contents of Cask is as follows (long list of packages are omitted
+for brevity).
 </p>
 
 <div class="org-src-container">
@@ -200,8 +201,7 @@ omitted for brevity).
 </div>
 
 <p>
-And the following snippet is needed to initialize the <code>cask</code>
-manager.
+And the following snippet is needed to initialize the <code>cask</code> manager.
 </p>
 
 <div class="org-src-container">
@@ -212,7 +212,8 @@ manager.
 </div>
 
 <p>
-For more information about Cask, please refer to its <a href="http://cask.readthedocs.org/en/latest/">documentation</a>.
+For more information about Cask, please refer to its
+<a href="http://cask.readthedocs.org/en/latest/">documentation</a>.
 </p>
 
 <p>
@@ -272,15 +273,14 @@ Then follows some helper functions.
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">defun</span> <span style="color: #fcaf3e; font-weight: bold;">my-apply-region-or-line</span> (func)
   <span style="color: #babdb6; font-style: italic;">"Apply FUNC to a region, or current line if mark is not</span>
-<span style="color: #babdb6; font-style: italic;">active."</span>
+<span style="color: #babdb6; font-style: italic;">      active."</span>
   (<span style="color: #729fcf; font-weight: bold;">save-excursion</span>
-  (<span style="color: #729fcf; font-weight: bold;">if</span> (region-active-p)
-      (funcall func (region-beginning) (region-end))
-    (funcall func (line-beginning-position) (line-end-position)))))
+    (<span style="color: #729fcf; font-weight: bold;">if</span> (region-active-p)
+        (funcall func (region-beginning) (region-end))
+      (funcall func (line-beginning-position) (line-end-position)))))
 
 (<span style="color: #729fcf; font-weight: bold;">defun</span> <span style="color: #fcaf3e; font-weight: bold;">my-apply-region-or-para</span> (func)
-  <span style="color: #babdb6; font-style: italic;">"Apply FUNC to a region, or current paragraph if mark is not</span>
-<span style="color: #babdb6; font-style: italic;">active."</span>
+  <span style="color: #babdb6; font-style: italic;">"Apply FUNC to a region, or current paragraph if mark is not active."</span>
   (<span style="color: #729fcf; font-weight: bold;">save-excursion</span>
     (<span style="color: #729fcf; font-weight: bold;">if</span> (not (region-active-p))
         (mark-paragraph))
@@ -288,13 +288,13 @@ Then follows some helper functions.
 
 (<span style="color: #729fcf; font-weight: bold;">defun</span> <span style="color: #fcaf3e; font-weight: bold;">sort-words</span> (reverse beg end)
   <span style="color: #babdb6; font-style: italic;">"Sort words in region alphabetically, in REVERSE if</span>
-<span style="color: #babdb6; font-style: italic;">    negative. Prefixed with negative \\[</span><span style="color: #73d216; font-style: italic;">universal-argument</span><span style="color: #babdb6; font-style: italic;">],</span>
-<span style="color: #babdb6; font-style: italic;">    sorts in reverse.</span>
+<span style="color: #babdb6; font-style: italic;">      negative. Prefixed with negative \\[</span><span style="color: #73d216; font-style: italic;">universal-argument</span><span style="color: #babdb6; font-style: italic;">], sorts</span>
+<span style="color: #babdb6; font-style: italic;">      in reverse.</span>
 
-<span style="color: #babdb6; font-style: italic;">    The variable `</span><span style="color: #73d216; font-style: italic;">sort-fold-case</span><span style="color: #babdb6; font-style: italic;">' determines whether alphabetic</span>
-<span style="color: #babdb6; font-style: italic;">    case affects the sort order.</span>
+<span style="color: #babdb6; font-style: italic;">        The variable `</span><span style="color: #73d216; font-style: italic;">sort-fold-case</span><span style="color: #babdb6; font-style: italic;">' determines whether alphabetic</span>
+<span style="color: #babdb6; font-style: italic;">        case affects the sort order.</span>
 
-<span style="color: #babdb6; font-style: italic;">    See `</span><span style="color: #73d216; font-style: italic;">sort-regexp-fields</span><span style="color: #babdb6; font-style: italic;">'."</span>
+<span style="color: #babdb6; font-style: italic;">        See `</span><span style="color: #73d216; font-style: italic;">sort-regexp-fields</span><span style="color: #babdb6; font-style: italic;">'."</span>
   (interactive <span style="color: #de7fa8;">"*P\nr"</span>)
   (sort-regexp-fields reverse <span style="color: #de7fa8;">"</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">(</span><span style="color: #de7fa8;">\\w</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">-</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">)</span><span style="color: #de7fa8;">+"</span> <span style="color: #de7fa8;">"\\&amp;"</span> beg end))
 
@@ -315,8 +315,8 @@ Then follows some helper functions.
 <p>
 This section contains goodies that enpower Emacs.  Two of the most
 important packages I'm using, Orgmode and Gnus are kept in separate
-configuration files and listed in separeted sections, while all
-others are all listed under Section <a href="#sec:miscpac">5.3</a>.
+configuration files and listed in separeted sections, while all others
+are all listed under Section <a href="#sec:miscpac">5.3</a>.
 </p>
 </div>
 
@@ -327,14 +327,15 @@ others are all listed under Section <a href="#sec:miscpac">5.3</a>.
 <blockquote>
 <p>
 Gnus is a flexible message reader running under GNU Emacs.  It
-supports reading and composing both news and mail.  In addition, it is
-able to use a number of web-based sources as inputs for its groups.
+supports reading and composing both news and mail.  In addition, it
+is able to use a number of web-based sources as inputs for its
+groups.
 </p>
 </blockquote>
 
 <p>
-I choose Gnus over other GUI or console email client mainly because it
-is a builtin Emacs package, which gives me access to most of the
+I choose Gnus over other GUI or console email client mainly because
+it is a builtin Emacs package, which gives me access to most of the
 powerful goodies when composing and reading emails.
 </p>
 
@@ -478,8 +479,7 @@ My Offlineimap configuration is as follows.
 [<span style="color: #fce94f; font-weight: bold;">Repository GmailLocal</span>]
 
 <span style="color: #ff2929;">type</span> = Maildir
-<span style="color: #ff2929;">localfolders</span> = ~/Mail/Gmail
-<span style="color: #ff2929;">sep</span> = /
+<span style="color: #ff2929;">localfolders</span> = ~/Mail/Gmail sep = /
 
 [<span style="color: #fce94f; font-weight: bold;">Repository GmailRemote</span>]
 
@@ -526,8 +526,7 @@ Now comes the workhorse, <i>Gnus</i>.
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">gnus</span>
   <span style="color: #729fcf;">:bind</span> (<span style="color: #de7fa8;">"&lt;f12&gt;"</span> . gnus-other-frame)
   <span style="color: #729fcf;">:config</span>
-  (setq gnus-init-file
-        <span style="color: #de7fa8;">"/home/gongzhitaao/.emacs.d/gnus-conf.el"</span>))
+  (setq gnus-init-file <span style="color: #de7fa8;">"/home/gongzhitaao/.emacs.d/gnus-conf.el"</span>))
 </pre>
 </div>
 </div>
@@ -558,12 +557,16 @@ Now comes the workhorse, <i>Gnus</i>.
       (<span style="color: #729fcf; font-weight: bold;">require</span> <span style="color: #73d216;">m</span>)))
 
   <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Where I add todos.</span>
-
   (add-hook 'org-mode-hook 'turn-on-reftex)
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
   (define-key org-mode-map (kbd <span style="color: #de7fa8;">"C-c )"</span>) #'reftex-reference)
   (define-key org-mode-map (kbd <span style="color: #de7fa8;">"C-c ["</span>) #'reftex-citation)
+  (define-key org-mode-map [remap fill-paragraph] #'org-fill-paragraph)
+  (define-key org-mode-map (kbd <span style="color: #de7fa8;">"C-c C-\\"</span>)
+    (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
+      (interactive)
+      (my-apply-region-or-para 'org-indent-region)))
 
   (setq org-directory (expand-file-name <span style="color: #de7fa8;">"org"</span> my-personal-dir))
 
@@ -596,10 +599,10 @@ Now comes the workhorse, <i>Gnus</i>.
         org-html-head-include-scripts nil)
 
   <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Postamble.</span>
-  (setq
-   org-html-postamble t
-   org-html-postamble-format
-   '((<span style="color: #de7fa8;">"en"</span> <span style="color: #de7fa8;">"&lt;a class=\"author\" href=\"http://gongzhitaao.org\"&gt;%a&lt;/a&gt; / &lt;span class=\"date\"&gt;%T&lt;/span&gt;&lt;span class=\"creator\"&gt;%c&lt;/span&gt;"</span>)))
+  (setq org-html-postamble t org-html-postamble-format
+        '((<span style="color: #de7fa8;">"en"</span> <span style="color: #de7fa8;">"&lt;a class=\"author\"</span>
+<span style="color: #de7fa8;">       href=\"http://gongzhitaao.org\"&gt;%a&lt;/a&gt; / &lt;span</span>
+<span style="color: #de7fa8;">       class=\"date\"&gt;%T&lt;/span&gt;&lt;span class=\"creator\"&gt;%c&lt;/span&gt;"</span>)))
 
   <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Use prefix key as tag selection</span>
   (setq org-use-fast-todo-selection t)
@@ -608,8 +611,12 @@ Now comes the workhorse, <i>Gnus</i>.
   (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 
   (setq org-todo-keywords
-        '((sequence <span style="color: #de7fa8;">"TODO(t)"</span> <span style="color: #de7fa8;">"NEXT(n)"</span> <span style="color: #de7fa8;">"|"</span> <span style="color: #de7fa8;">"DONE(d!)"</span>)
-          (sequence <span style="color: #de7fa8;">"WAIT(w@/!)"</span> <span style="color: #de7fa8;">"HOLD(h@/!)"</span> <span style="color: #de7fa8;">"|"</span> <span style="color: #de7fa8;">"KILL(k@)"</span>)))
+        '((sequence
+           <span style="color: #de7fa8;">"TODO(t)"</span> <span style="color: #de7fa8;">"NEXT(n)"</span> <span style="color: #de7fa8;">"|"</span>
+           <span style="color: #de7fa8;">"DONE(d!)"</span>)
+          (sequence
+           <span style="color: #de7fa8;">"WAIT(w@/!)"</span> <span style="color: #de7fa8;">"HOLD(h@/!)"</span> <span style="color: #de7fa8;">"|"</span>
+           <span style="color: #de7fa8;">"KILL(k@)"</span>)))
 
   (setq org-todo-keyword-faces
         '((<span style="color: #de7fa8;">"TODO"</span> <span style="color: #729fcf;">:foreground</span> <span style="color: #de7fa8;">"red"</span> <span style="color: #729fcf;">:weight</span> bold)
@@ -620,7 +627,8 @@ Now comes the workhorse, <i>Gnus</i>.
           (<span style="color: #de7fa8;">"KILL"</span> <span style="color: #729fcf;">:foreground</span> <span style="color: #de7fa8;">"forest green"</span> <span style="color: #729fcf;">:weight</span> bold)))
 
   <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Files to be included in Agenda view.</span>
-  (setq org-agenda-files (expand-file-name <span style="color: #de7fa8;">"orgfile"</span> org-directory))
+  (setq org-agenda-files
+        (expand-file-name <span style="color: #de7fa8;">"orgfile"</span> org-directory))
 
 
   (setq org-agenda-dim-blocked-tasks t)
@@ -642,7 +650,6 @@ Now comes the workhorse, <i>Gnus</i>.
         org-habit-following-days 1
         org-agenda-start-with-log-mode t)
 
-
   (setq org-clock-history-length 32
         org-clock-in-resume t)
   (setq org-log-into-drawer t
@@ -656,47 +663,40 @@ Now comes the workhorse, <i>Gnus</i>.
   (setq org-capture-templates
         '((<span style="color: #de7fa8;">"t"</span> <span style="color: #de7fa8;">"New TODO"</span> entry
            (file+headline <span style="color: #de7fa8;">"todo.org.gz"</span> <span style="color: #de7fa8;">"Tasks"</span>)
-           <span style="color: #de7fa8;">"* TODO %^{Title} %^G\n  %u\n  %?\n\n\n"</span>)
+           <span style="color: #de7fa8;">"* TODO %^{Title} %^G\n %u\n %?\n\n\n"</span>)
           (<span style="color: #de7fa8;">"p"</span> <span style="color: #de7fa8;">"New Project Proposal"</span> entry
            (file+headline <span style="color: #de7fa8;">"proj.org.gz"</span> <span style="color: #de7fa8;">"Projects"</span>)
-           <span style="color: #de7fa8;">"* %^{Title} %^G\n  %u\n  %?\n\n\n"</span>)))
+           <span style="color: #de7fa8;">"* %^{Title} %^G\n %u\n %?\n\n\n"</span>)))
 
   (setq org-latex-pdf-process
         (quote (<span style="color: #de7fa8;">"texi2dvi --pdf --clean --verbose --batch %f"</span>)))
 
-  (add-to-list 'org-latex-classes
-               '(<span style="color: #de7fa8;">"scrartcl"</span>
-                 <span style="color: #de7fa8;">"\\documentclass{scrartcl}</span>
-<span style="color: #de7fa8;">                [NO-DEFAULT-PACKAGES]</span>
-<span style="color: #de7fa8;">                [NO-PACKAGES]</span>
-<span style="color: #de7fa8;">                [EXTRA]"</span>
-                 (<span style="color: #de7fa8;">"\\section{%s}"</span> . <span style="color: #de7fa8;">"\\section*{%s}"</span>)
-                 (<span style="color: #de7fa8;">"\\subsection{%s}"</span> . <span style="color: #de7fa8;">"\\subsection*{%s}"</span>)
-                 (<span style="color: #de7fa8;">"\\subsubsection{%s}"</span> . <span style="color: #de7fa8;">"\\subsubsection*{%s}"</span>)
-                 (<span style="color: #de7fa8;">"\\paragraph{%s}"</span> . <span style="color: #de7fa8;">"\\paragraph*{%s}"</span>)
-                 (<span style="color: #de7fa8;">"\\subparagraph{%s}"</span> . <span style="color: #de7fa8;">"\\subparagraph*{%s}"</span>)))
+  (add-to-list
+   'org-latex-classes
+   '(<span style="color: #de7fa8;">"scrartcl"</span>
+     <span style="color: #de7fa8;">"\\documentclass{scrartcl} [NO-DEFAULT-PACKAGES] [NO-PACKAGES] [EXTRA]"</span>
+     (<span style="color: #de7fa8;">"\\section{%s}"</span> . <span style="color: #de7fa8;">"\\section*{%s}"</span>)
+     (<span style="color: #de7fa8;">"\\subsection{%s}"</span> . <span style="color: #de7fa8;">"\\subsection*{%s}"</span>)
+     (<span style="color: #de7fa8;">"\\subsubsection{%s}"</span> . <span style="color: #de7fa8;">"\\subsubsection*{%s}"</span>)
+     (<span style="color: #de7fa8;">"\\paragraph{%s}"</span> . <span style="color: #de7fa8;">"\\paragraph*{%s}"</span>)
+     (<span style="color: #de7fa8;">"\\subparagraph{%s}"</span> . <span style="color: #de7fa8;">"\\subparagraph*{%s}"</span>)))
 
-  (add-to-list 'org-latex-classes
-               '(<span style="color: #de7fa8;">"scrreprt"</span>
-                 <span style="color: #de7fa8;">"\\documentclass{scrreprt}</span>
-<span style="color: #de7fa8;">                [NO-DEFAULT-PACKAGES]</span>
-<span style="color: #de7fa8;">                [NO-PACKAGES]</span>
-<span style="color: #de7fa8;">                [EXTRA]"</span>
-                 (<span style="color: #de7fa8;">"\\section{%s}"</span> . <span style="color: #de7fa8;">"\\section*{%s}"</span>)
-                 (<span style="color: #de7fa8;">"\\subsection{%s}"</span> . <span style="color: #de7fa8;">"\\subsection*{%s}"</span>)
-                 (<span style="color: #de7fa8;">"\\subsubsection{%s}"</span> . <span style="color: #de7fa8;">"\\subsubsection*{%s}"</span>)
-                 (<span style="color: #de7fa8;">"\\paragraph{%s}"</span> . <span style="color: #de7fa8;">"\\paragraph*{%s}"</span>)
-                 (<span style="color: #de7fa8;">"\\subparagraph{%s}"</span> . <span style="color: #de7fa8;">"\\subparagraph*{%s}"</span>)))
+  (add-to-list
+   'org-latex-classes
+   '(<span style="color: #de7fa8;">"scrreprt"</span>
+     <span style="color: #de7fa8;">"\\documentclass{scrreprt} [NO-DEFAULT-PACKAGES] [NO-PACKAGES] [EXTRA]"</span>
+     (<span style="color: #de7fa8;">"\\section{%s}"</span> . <span style="color: #de7fa8;">"\\section*{%s}"</span>)
+     (<span style="color: #de7fa8;">"\\subsection{%s}"</span> . <span style="color: #de7fa8;">"\\subsection*{%s}"</span>)
+     (<span style="color: #de7fa8;">"\\subsubsection{%s}"</span> . <span style="color: #de7fa8;">"\\subsubsection*{%s}"</span>)
+     (<span style="color: #de7fa8;">"\\paragraph{%s}"</span> . <span style="color: #de7fa8;">"\\paragraph*{%s}"</span>)
+     (<span style="color: #de7fa8;">"\\subparagraph{%s}"</span> . <span style="color: #de7fa8;">"\\subparagraph*{%s}"</span>)))
 
-  (setq org-publish-project-alist
-        '((<span style="color: #de7fa8;">"emacsdotd"</span>
-           <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/.emacs.d/"</span>
-           <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"org"</span>
-           <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/emacsdotd"</span>
-           <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-           <span style="color: #729fcf;">:htmlized-source</span> t))))
-
-<span style="color: #babdb6; font-style: italic;">;;; </span><span style="color: #babdb6; font-style: italic;">org-conf.el ends here</span>
+  (setq org-publish-project-alist '((<span style="color: #de7fa8;">"emacsdotd"</span>
+                                     <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/.emacs.d/"</span>
+                                     <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"org"</span>
+                                     <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/emacsdotd"</span>
+                                     <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
+                                     <span style="color: #729fcf;">:htmlized-source</span> t))))
 </pre>
 </div>
 </div>
@@ -707,11 +707,10 @@ Now comes the workhorse, <i>Gnus</i>.
 <div class="outline-text-3" id="text-sec:miscpac">
 
 <p>
-The followings are light yet serious functionalities.  Some of
-which that are wrapped in <code>(when (display-graphic-p) ...)</code> are
-intended to be loaded only in GUI mode.  When in console mode,
-e.g., editing files through SSH, I only need core editing
-functions.
+The followings are light yet serious functionalities.  Some of which
+that are wrapped in <code>(when (display-graphic-p) ...)</code> are intended to
+be loaded only in GUI mode.  When in console mode, e.g., editing
+files through SSH, I only need core editing functions.
 </p>
 </div>
 
@@ -727,8 +726,8 @@ Make minor modes invisible.  As quoted from Will Mengarini in
 <p>
 When we diminish a mode, we are saying we want it to continue doing
 its work for us, but we no longer want to be reminded of it. It
-becomes a night worker, like a janitor; it becomes an invisible
-man; it remains a component, perhaps an important one, sometimes an
+becomes a night worker, like a janitor; it becomes an invisible man;
+it remains a component, perhaps an important one, sometimes an
 indispensable one, of the mechanism that maintains the day-people's
 world, but its place in their thoughts is diminished, usually to
 nothing. As we grow old we diminish more and more such thoughts,
@@ -748,10 +747,9 @@ such people, usually to nothing.
 <h4 id="sec-5-3-2"><span class="section-number-4">5.3.2</span> Ag</h4>
 <div class="outline-text-4" id="text-5-3-2">
 <p>
-Search like crazy.  It is a code-searching tool alternative for
-ack related frontend, e.g., ack-and-a-half, which is not actively
-maintained anymore.  I included this package but never used
-before!!
+Search like crazy.  It is a code-searching tool alternative for ack
+related frontend, e.g., ack-and-a-half, which is not actively
+maintained anymore.  I included this package but never used before!!
 </p>
 
 <div class="org-src-container">
@@ -760,12 +758,15 @@ before!!
   <span style="color: #729fcf;">:defines</span> my-ag-keymap
   <span style="color: #729fcf;">:bind-keymap</span> (<span style="color: #de7fa8;">"C-c a"</span> . my-ag-map)
   <span style="color: #729fcf;">:config</span>
+
   (setq ag-reuse-buffers t    <span style="color: #babdb6; font-style: italic;">; </span><span style="color: #babdb6; font-style: italic;">Don't spam buffer list with ag buffers</span>
         ag-highlight-search t <span style="color: #babdb6; font-style: italic;">; </span><span style="color: #babdb6; font-style: italic;">A little fanciness</span>
+
         <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Use Projectile to find the project root</span>
-        ag-project-root-function (<span style="color: #729fcf; font-weight: bold;">lambda</span> (d)
-                                   (<span style="color: #729fcf; font-weight: bold;">let</span> ((default-directory d))
-                                     (projectile-project-root))))
+        ag-project-root-function
+        (<span style="color: #729fcf; font-weight: bold;">lambda</span> (d)
+          (<span style="color: #729fcf; font-weight: bold;">let</span> ((default-directory d))
+            (projectile-project-root))))
 
   (<span style="color: #729fcf; font-weight: bold;">defvar</span> <span style="color: #ff2929;">my-ag-map</span>
     (<span style="color: #729fcf; font-weight: bold;">let</span> ((map (make-sparse-keymap)))
@@ -782,10 +783,10 @@ before!!
 <h4 id="sec-5-3-3"><span class="section-number-4">5.3.3</span> Anzu</h4>
 <div class="outline-text-4" id="text-5-3-3">
 <p>
-Display in the modeline search information, i.e, <code>(cur/total)</code>, where
-<code>cur</code> is the current index of searched keyword and total is number
-of totally matched keywords in the current buffer, as shown in
-Figure <a href="#fig:anzu">1</a>.
+Display in the modeline search information, i.e, <code>(cur/total)</code>,
+where <code>cur</code> is the current index of searched keyword and total is
+number of totally matched keywords in the current buffer, as shown
+in Figure <a href="#fig:anzu">1</a>.
 </p>
 
 
@@ -808,9 +809,33 @@ Figure <a href="#fig:anzu">1</a>.
 <div id="outline-container-sec-5-3-4" class="outline-4">
 <h4 id="sec-5-3-4"><span class="section-number-4">5.3.4</span> Appt</h4>
 <div class="outline-text-4" id="text-5-3-4">
+<blockquote>
 <p>
-Activate appointment management and remind Org agenda as
-appoinment, only in GUI mode.
+The Emacs diary keeps track of appointments or other events on a
+daily basis, in conjunction with the calendar.
+</p>
+</blockquote>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">when</span> (display-graphic-p)
+  (setq diary-file (expand-file-name <span style="color: #de7fa8;">"diary"</span> my-personal-dir)))
+</pre>
+</div>
+
+<p>
+Show diary when I view the calendar.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq calendar-view-diary-initially-flag t)
+</pre>
+</div>
+
+<p>
+Activate appointment management and remind Org agenda as appoinment,
+only in GUI mode.
 </p>
 
 <div class="org-src-container">
@@ -851,7 +876,7 @@ Async in Emacs?  Cool!
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">async</span>
-  <span style="color: #729fcf;">:commands</span> (dired-async-mode dired-async.el)
+  <span style="color: #729fcf;">:commands</span> (dired-async-mode)
   <span style="color: #729fcf;">:init</span> (dired-async-mode 1))
 </pre>
 </div>
@@ -863,8 +888,8 @@ Async in Emacs?  Cool!
 <div class="outline-text-4" id="text-5-3-6">
 <p>
 <a href="http://savannah.nongnu.org/projects/bbdb/">BBDB</a> (Insidious Big Brother Database) is a rolodex-like database
-program for GNU Emacs.  It is mainly used to store contacts.  And
-it has nice integration with Gnus.
+program for GNU Emacs.  It is mainly used to store contacts.  And it
+has nice integration with Gnus.
 </p>
 
 <div class="org-src-container">
@@ -873,10 +898,13 @@ it has nice integration with Gnus.
   <span style="color: #729fcf;">:if</span> (display-graphic-p)
   <span style="color: #729fcf;">:config</span>
   (bbdb-initialize 'gnus 'mail 'message 'anniv)
+
   (setq bbdb-complete-mail-allow-cycling t
         bbdb-allow-duplicates t
         bbdb-message-all-addresses t
-        bbdb-file (expand-file-name <span style="color: #de7fa8;">"contacts.bbdb.gz"</span> my-personal-dir))
+        bbdb-file
+        (expand-file-name <span style="color: #de7fa8;">"contacts.bbdb.gz"</span> my-personal-dir))
+
   (add-hook 'message-setup-hook 'bbdb-mail-aliases))
 </pre>
 </div>
@@ -888,9 +916,8 @@ it has nice integration with Gnus.
 <div class="outline-text-4" id="text-5-3-7">
 <blockquote>
 <p>
-<a href="http://jblevins.org/projects/deft/">Deft</a> is an Emacs mode for quickly browsing, filtering, and
-editing directories of plain text notes, inspired by <a href="http://notational.net/">Notational
-Velocity</a>.
+<a href="http://jblevins.org/projects/deft/">Deft</a> is an Emacs mode for quickly browsing, filtering, and editing
+directories of plain text notes, inspired by <a href="http://notational.net/">Notational Velocity</a>.
 </p>
 </blockquote>
 
@@ -905,37 +932,20 @@ Velocity</a>.
         deft-text-mode 'org-mode
         deft-use-filename-as-title nil
         deft-auto-save-interval 0
-        deft-strip-title-regexp (concat deft-strip-title-regexp
-                                        <span style="color: #de7fa8;">"</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">(?:</span><span style="color: #de7fa8;">\\+TITLE:[[:space:]]+</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">)</span><span style="color: #de7fa8;">"</span>)))
+        deft-strip-title-regexp
+        (concat deft-strip-title-regexp
+                <span style="color: #de7fa8;">"</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">(?:</span><span style="color: #de7fa8;">\\+TITLE:[[:space:]]+</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">)</span><span style="color: #de7fa8;">"</span>)))
 </pre>
 </div>
 </div>
 </div>
 
 <div id="outline-container-sec-5-3-8" class="outline-4">
-<h4 id="sec-5-3-8"><span class="section-number-4">5.3.8</span> Diary</h4>
+<h4 id="sec-5-3-8"><span class="section-number-4">5.3.8</span> Dired</h4>
 <div class="outline-text-4" id="text-5-3-8">
-<blockquote>
 <p>
-The Emacs diary keeps track of appointments or other events on a
-daily basis, in conjunction with the calendar.
-</p>
-</blockquote>
-
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp">(setq diary-file (expand-file-name <span style="color: #de7fa8;">"diary"</span> my-personal-dir))
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-sec-5-3-9" class="outline-4">
-<h4 id="sec-5-3-9"><span class="section-number-4">5.3.9</span> Dired</h4>
-<div class="outline-text-4" id="text-5-3-9">
-<p>
-It is a really cool bultin package of which I have not yet
-leveraged the full power.
+It is a really cool bultin package of which I have not yet leveraged
+the full power.
 </p>
 
 <div class="org-src-container">
@@ -953,9 +963,9 @@ leveraged the full power.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-10" class="outline-4">
-<h4 id="sec-5-3-10"><span class="section-number-4">5.3.10</span> Display-time</h4>
-<div class="outline-text-4" id="text-5-3-10">
+<div id="outline-container-sec-5-3-9" class="outline-4">
+<h4 id="sec-5-3-9"><span class="section-number-4">5.3.9</span> Display-time</h4>
+<div class="outline-text-4" id="text-5-3-9">
 <p>
 Display time and unread mail notification, if not in terminal, in
 the mode line.
@@ -963,14 +973,12 @@ the mode line.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq display-time-24hr-format t
-      display-time-day-and-date nil)
+<pre class="src src-emacs-lisp">(setq display-time-24hr-format t display-time-day-and-date nil)
 
 (<span style="color: #729fcf; font-weight: bold;">when</span> (display-graphic-p)
 
   (setq display-time-mail-function
-        (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-          <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Gnus launched?</span>
+        (<span style="color: #729fcf; font-weight: bold;">lambda</span> () <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Gnus launched?</span>
           (<span style="color: #729fcf; font-weight: bold;">when</span> (boundp 'gnus-newsrc-alist)
             (<span style="color: #729fcf; font-weight: bold;">dolist</span> (entry gnus-newsrc-alist)
               (<span style="color: #729fcf; font-weight: bold;">let</span> ((group (car entry)))
@@ -992,9 +1000,9 @@ the mode line.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-11" class="outline-4">
-<h4 id="sec-5-3-11"><span class="section-number-4">5.3.11</span> Eshell</h4>
-<div class="outline-text-4" id="text-5-3-11">
+<div id="outline-container-sec-5-3-10" class="outline-4">
+<h4 id="sec-5-3-10"><span class="section-number-4">5.3.10</span> Eshell</h4>
+<div class="outline-text-4" id="text-5-3-10">
 <p>
 Emacs shell program.  Very handy for remote console access.
 </p>
@@ -1011,16 +1019,15 @@ Emacs shell program.  Very handy for remote console access.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-12" class="outline-4">
-<h4 id="sec-5-3-12"><span class="section-number-4">5.3.12</span> ESS</h4>
-<div class="outline-text-4" id="text-5-3-12">
+<div id="outline-container-sec-5-3-11" class="outline-4">
+<h4 id="sec-5-3-11"><span class="section-number-4">5.3.11</span> ESS</h4>
+<div class="outline-text-4" id="text-5-3-11">
 <blockquote>
 <p>
 <a href="http://ess.r-project.org/">ESS</a> (Emacs Speaks Statistics) is an add-on package for Emacs text
 editors such as GNU Emacs and XEmacs.  It is designed to support
-editing of scripts and interaction with various statistical
-analysis programs such as R, S-Plus, SAS, Stata and
-OpenBUGS/JAGS.
+editing of scripts and interaction with various statistical analysis
+programs such as R, S-Plus, SAS, Stata and OpenBUGS/JAGS.
 </p>
 </blockquote>
 
@@ -1040,7 +1047,9 @@ I think <a href="http://julialang.org/">Julia</a> is also supported.
               (setq ess-first-continued-statement-offset 2)
               (setq ess-continued-statement-offset 0)
               (setq ess-tab-complete-in-script t)
-              (setq ess-first-tab-never-complete 'symbol-or-paren-or-punct)))
+              (setq ess-first-tab-never-complete
+                    'symbol-or-paren-or-punct)))
+
   (add-hook 'inferior-ess-mode-hook
             (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
               (smartparens-mode 1))))
@@ -1049,9 +1058,9 @@ I think <a href="http://julialang.org/">Julia</a> is also supported.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-13" class="outline-4">
-<h4 id="sec-5-3-13"><span class="section-number-4">5.3.13</span> Expand-region</h4>
-<div class="outline-text-4" id="text-5-3-13">
+<div id="outline-container-sec-5-3-12" class="outline-4">
+<h4 id="sec-5-3-12"><span class="section-number-4">5.3.12</span> Expand-region</h4>
+<div class="outline-text-4" id="text-5-3-12">
 <p>
 Select the region in a DWIW style.
 </p>
@@ -1065,9 +1074,9 @@ Select the region in a DWIW style.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-14" class="outline-4">
-<h4 id="sec-5-3-14"><span class="section-number-4">5.3.14</span> Flycheck</h4>
-<div class="outline-text-4" id="text-5-3-14">
+<div id="outline-container-sec-5-3-13" class="outline-4">
+<h4 id="sec-5-3-13"><span class="section-number-4">5.3.13</span> Flycheck</h4>
+<div class="outline-text-4" id="text-5-3-13">
 <p>
 Eamcs Front-end for various languages syntax checker.
 </p>
@@ -1084,9 +1093,9 @@ Eamcs Front-end for various languages syntax checker.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-15" class="outline-4">
-<h4 id="sec-5-3-15"><span class="section-number-4">5.3.15</span> Javascript</h4>
-<div class="outline-text-4" id="text-5-3-15">
+<div id="outline-container-sec-5-3-14" class="outline-4">
+<h4 id="sec-5-3-14"><span class="section-number-4">5.3.14</span> Javascript</h4>
+<div class="outline-text-4" id="text-5-3-14">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">js2-mode</span>
@@ -1102,9 +1111,9 @@ Eamcs Front-end for various languages syntax checker.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-16" class="outline-4">
-<h4 id="sec-5-3-16"><span class="section-number-4">5.3.16</span> Helm</h4>
-<div class="outline-text-4" id="text-5-3-16">
+<div id="outline-container-sec-5-3-15" class="outline-4">
+<h4 id="sec-5-3-15"><span class="section-number-4">5.3.15</span> Helm</h4>
+<div class="outline-text-4" id="text-5-3-15">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">defvar</span> <span style="color: #ff2929;">helm-command-prefix-key</span>)
@@ -1121,17 +1130,17 @@ Eamcs Front-end for various languages syntax checker.
 
   (<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">helm-files</span>)
   (setq helm-recentf-fuzzy-match t
-      helm-buffers-fuzzy-matching t
-      helm-completion-in-region-fuzzy-match t
-      helm-mode-fuzzy-match t))
+        helm-buffers-fuzzy-matching t
+        helm-completion-in-region-fuzzy-match t
+        helm-mode-fuzzy-match t))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-17" class="outline-4">
-<h4 id="sec-5-3-17"><span class="section-number-4">5.3.17</span> Ibuffer</h4>
-<div class="outline-text-4" id="text-5-3-17">
+<div id="outline-container-sec-5-3-16" class="outline-4">
+<h4 id="sec-5-3-16"><span class="section-number-4">5.3.16</span> Ibuffer</h4>
+<div class="outline-text-4" id="text-5-3-16">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">ibuffer</span>
@@ -1196,72 +1205,74 @@ Eamcs Front-end for various languages syntax checker.
                 (mode . ess-help-mode)
                 (name . <span style="color: #de7fa8;">"^\\*scratch\\*$"</span>))))))
 
-  (add-hook 'ibuffer-mode-hook
-            (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-              (ibuffer-auto-mode 1)
-              (ibuffer-switch-to-saved-filter-groups <span style="color: #de7fa8;">"default"</span>)
-              (local-set-key (kbd <span style="color: #de7fa8;">"&lt;right&gt;"</span>) 'ibuffer-forward-filter-group)
-              (local-set-key (kbd <span style="color: #de7fa8;">"&lt;left&gt;"</span>) 'ibuffer-backward-filter-group)
-              (substitute-key-definition 'ibuffer-find-file 'ido-find-file (current-local-map))
-              (hl-line-mode 1)))
+  (add-hook
+   'ibuffer-mode-hook
+   (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
+     (ibuffer-auto-mode 1)
+     (ibuffer-switch-to-saved-filter-groups <span style="color: #de7fa8;">"default"</span>)
+     (local-set-key (kbd <span style="color: #de7fa8;">"&lt;right&gt;"</span>) 'ibuffer-forward-filter-group)
+     (local-set-key (kbd <span style="color: #de7fa8;">"&lt;left&gt;"</span>) 'ibuffer-backward-filter-group)
+     (substitute-key-definition
+      'ibuffer-find-file 'ido-find-file (current-local-map))
+     (hl-line-mode 1)))
 
   (define-ibuffer-column size-h
     (<span style="color: #729fcf;">:name</span> <span style="color: #de7fa8;">"Size"</span> <span style="color: #729fcf;">:inline</span> t)
-    (<span style="color: #729fcf; font-weight: bold;">cond</span>
-     ((&gt; (buffer-size) 1000) (format <span style="color: #de7fa8;">"%7.1fk"</span> (/ (buffer-size) 1000.0)))
-     ((&gt; (buffer-size) 1000000) (format <span style="color: #de7fa8;">"%7.1fM"</span> (/ (buffer-size) 1000000.0)))
-     (t (format <span style="color: #de7fa8;">"%8dB"</span> (buffer-size)))))
+    (<span style="color: #729fcf; font-weight: bold;">cond</span> ((&gt; (buffer-size) 1000)
+           (format <span style="color: #de7fa8;">"%7.1fk"</span> (/ (buffer-size) 1000.0)))
+          ((&gt; (buffer-size) 1000000)
+           (format <span style="color: #de7fa8;">"%7.1fM"</span> (/ (buffer-size) 1000000.0)))
+          (t (format <span style="color: #de7fa8;">"%8dB"</span> (buffer-size)))))
 
   (setq ibuffer-formats
         '((mark modified read-only <span style="color: #de7fa8;">" "</span>
-                (name 18 18 <span style="color: #729fcf;">:left</span> <span style="color: #729fcf;">:elide</span>)
-                <span style="color: #de7fa8;">" "</span>
-                (size-h 9 -1 <span style="color: #729fcf;">:right</span>)
-                <span style="color: #de7fa8;">" "</span>
-                (mode 16 16 <span style="color: #729fcf;">:left</span> <span style="color: #729fcf;">:elide</span>)
-                <span style="color: #de7fa8;">" "</span>
+                (name 18 18 <span style="color: #729fcf;">:left</span> <span style="color: #729fcf;">:elide</span>) <span style="color: #de7fa8;">" "</span>
+                (size-h 9 -1 <span style="color: #729fcf;">:right</span>) <span style="color: #de7fa8;">" "</span>
+                (mode 16 16 <span style="color: #729fcf;">:left</span> <span style="color: #729fcf;">:elide</span>) <span style="color: #de7fa8;">" "</span>
                 filename-and-process))))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-18" class="outline-4">
-<h4 id="sec-5-3-18"><span class="section-number-4">5.3.18</span> Ido</h4>
-<div class="outline-text-4" id="text-5-3-18">
+<div id="outline-container-sec-5-3-17" class="outline-4">
+<h4 id="sec-5-3-17"><span class="section-number-4">5.3.17</span> Ido</h4>
+<div class="outline-text-4" id="text-5-3-17">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">ido</span>
   <span style="color: #729fcf;">:config</span>
   (ido-mode 'both)
 
-  (setq ido-save-directory-list-file (expand-file-name <span style="color: #de7fa8;">"idolast"</span> my-tmp)
-      <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">ignore these buffers during completion</span>
-      ido-ignore-buffers '(<span style="color: #de7fa8;">"\\` "</span> <span style="color: #de7fa8;">"^\*Mess"</span> <span style="color: #de7fa8;">"^\*Back"</span> <span style="color: #de7fa8;">".*Completion"</span> <span style="color: #de7fa8;">"^\*Ido"</span> <span style="color: #de7fa8;">"^\*trace"</span>
-                           <span style="color: #de7fa8;">"^\*compilation"</span> <span style="color: #de7fa8;">"^\*GTAGS"</span> <span style="color: #de7fa8;">"^session\.*"</span> <span style="color: #de7fa8;">"^\*"</span>)
-      <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">case insensitive</span>
-      ido-case-fold t
-      <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">remember last directory</span>
-      ido-enable-last-directory-history t
-      ido-max-work-file-list 50
-      ido-use-filename-at-point nil
-      ido-use-url-at-point nil
-      ido-enable-flex-matching nil
-      ido-max-prospects 6
-      ido-confirm-unique-completion t)
+  (setq ido-save-directory-list-file
+        (expand-file-name <span style="color: #de7fa8;">"idolast"</span> my-tmp)
+        <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">ignore these buffers during completion</span>
+        ido-ignore-buffers
+        '(<span style="color: #de7fa8;">"\\` "</span> <span style="color: #de7fa8;">"^\*Mess"</span> <span style="color: #de7fa8;">"^\*Back"</span> <span style="color: #de7fa8;">".*Completion"</span> <span style="color: #de7fa8;">"^\*Ido"</span> <span style="color: #de7fa8;">"^\*trace"</span> <span style="color: #de7fa8;">"^\*compilation"</span> <span style="color: #de7fa8;">"^\*GTAGS"</span> <span style="color: #de7fa8;">"^session\.*"</span> <span style="color: #de7fa8;">"^\*"</span>)
+        <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">case insensitive</span>
+        ido-case-fold t
+        <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">remember last directory</span>
+        ido-enable-last-directory-history t
+        ido-max-work-file-list 50
+        ido-use-filename-at-point nil
+        ido-use-url-at-point nil
+        ido-enable-flex-matching nil
+        ido-max-prospects 6
+        ido-confirm-unique-completion t)
 
   <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">increase minibuffer size when ido completion is active</span>
   (add-hook 'ido-minibuffer-setup-hook
             (function
              (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-               (make-local-variable 'resize-minibuffer-window-max-height)))))
+               (make-local-variable
+                'resize-minibuffer-window-max-height)))))
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-sec-5-3-19" class="outline-4">
-<h4 id="sec-5-3-19"><span class="section-number-4">5.3.19</span> Midnight</h4>
-<div class="outline-text-4" id="text-5-3-19">
+<div id="outline-container-sec-5-3-18" class="outline-4">
+<h4 id="sec-5-3-18"><span class="section-number-4">5.3.18</span> Midnight</h4>
+<div class="outline-text-4" id="text-5-3-18">
 <p>
 What is <code>midnight-mode</code> for?  Included but never used&#x2026;
 </p>
@@ -1274,9 +1285,9 @@ What is <code>midnight-mode</code> for?  Included but never used&#x2026;
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-20" class="outline-4">
-<h4 id="sec-5-3-20"><span class="section-number-4">5.3.20</span> Multiple-cursors</h4>
-<div class="outline-text-4" id="text-5-3-20">
+<div id="outline-container-sec-5-3-19" class="outline-4">
+<h4 id="sec-5-3-19"><span class="section-number-4">5.3.19</span> Multiple-cursors</h4>
+<div class="outline-text-4" id="text-5-3-19">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">multiple-cursors</span>
@@ -1301,9 +1312,9 @@ What is <code>midnight-mode</code> for?  Included but never used&#x2026;
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-21" class="outline-4">
-<h4 id="sec-5-3-21"><span class="section-number-4">5.3.21</span> Projectile</h4>
-<div class="outline-text-4" id="text-5-3-21">
+<div id="outline-container-sec-5-3-20" class="outline-4">
+<h4 id="sec-5-3-20"><span class="section-number-4">5.3.20</span> Projectile</h4>
+<div class="outline-text-4" id="text-5-3-20">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">projectile</span>
@@ -1318,9 +1329,9 @@ What is <code>midnight-mode</code> for?  Included but never used&#x2026;
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-22" class="outline-4">
-<h4 id="sec-5-3-22"><span class="section-number-4">5.3.22</span> Recentf</h4>
-<div class="outline-text-4" id="text-5-3-22">
+<div id="outline-container-sec-5-3-21" class="outline-4">
+<h4 id="sec-5-3-21"><span class="section-number-4">5.3.21</span> Recentf</h4>
+<div class="outline-text-4" id="text-5-3-21">
 <p>
 Save recently opened files.
 </p>
@@ -1341,9 +1352,9 @@ Save recently opened files.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-23" class="outline-4">
-<h4 id="sec-5-3-23"><span class="section-number-4">5.3.23</span> Savehist</h4>
-<div class="outline-text-4" id="text-5-3-23">
+<div id="outline-container-sec-5-3-22" class="outline-4">
+<h4 id="sec-5-3-22"><span class="section-number-4">5.3.22</span> Savehist</h4>
+<div class="outline-text-4" id="text-5-3-22">
 <p>
 Save minibuffer history.
 </p>
@@ -1361,9 +1372,9 @@ Save minibuffer history.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-24" class="outline-4">
-<h4 id="sec-5-3-24"><span class="section-number-4">5.3.24</span> Saveplace</h4>
-<div class="outline-text-4" id="text-5-3-24">
+<div id="outline-container-sec-5-3-23" class="outline-4">
+<h4 id="sec-5-3-23"><span class="section-number-4">5.3.23</span> Saveplace</h4>
+<div class="outline-text-4" id="text-5-3-23">
 <p>
 Save places in a file so that you can go back when you reopen it.
 </p>
@@ -1380,13 +1391,13 @@ Save places in a file so that you can go back when you reopen it.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-25" class="outline-4">
-<h4 id="sec-5-3-25"><span class="section-number-4">5.3.25</span> Smartparens</h4>
-<div class="outline-text-4" id="text-5-3-25">
+<div id="outline-container-sec-5-3-24" class="outline-4">
+<h4 id="sec-5-3-24"><span class="section-number-4">5.3.24</span> Smartparens</h4>
+<div class="outline-text-4" id="text-5-3-24">
 <blockquote>
 <p>
-Smartparens is minor mode for Emacs that <i>deals with parens pairs and
-tries to be smart about it</i>.
+Smartparens is minor mode for Emacs that <i>deals with parens pairs
+and tries to be smart about it</i>.
 </p>
 </blockquote>
 
@@ -1406,30 +1417,37 @@ parens.  Take as an simple example, kill the ballanced expression.
 
 <p>
 Suppose you want to delete <code>(func2 ...)</code>, normally I would delete
-character by character, or hightlight manually and then delete.  With
-<i>smartparens</i>, I may place cursor at the opening bracket of <code>func2</code>
-and <kbd>M-x</kbd> <code>sp-kill-sexp</code> would kill the whole <code>func2</code>
-expression.
+character by character, or hightlight manually and then delete.
+With <i>smartparens</i>, I may place cursor at the opening bracket of
+<code>func2</code> and <kbd>M-x</kbd> <code>sp-kill-sexp</code> would kill the whole
+<code>func2</code> expression.
 </p>
 
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">smartparens</span>
   <span style="color: #729fcf;">:init</span>
+
   (smartparens-global-mode t)
   (show-smartparens-global-mode 1)
+
   <span style="color: #729fcf;">:diminish</span> smartparens-mode
+
   <span style="color: #729fcf;">:config</span>
-  (<span style="color: #729fcf; font-weight: bold;">sp-with-modes</span> '(tex-mode plain-tex-mode latex-mode)
-                 (sp-local-tag <span style="color: #de7fa8;">"i"</span> <span style="color: #de7fa8;">"\"&lt;"</span> <span style="color: #de7fa8;">"\"&gt;"</span>)
-                 (sp-local-tag <span style="color: #de7fa8;">"i"</span> <span style="color: #de7fa8;">"\"["</span> <span style="color: #de7fa8;">"\"]"</span>))
+
+  (<span style="color: #729fcf; font-weight: bold;">sp-with-modes</span>
+      '(tex-mode plain-tex-mode latex-mode)
+    (sp-local-tag <span style="color: #de7fa8;">"i"</span> <span style="color: #de7fa8;">"\"&lt;"</span> <span style="color: #de7fa8;">"\"&gt;"</span>)
+    (sp-local-tag <span style="color: #de7fa8;">"i"</span> <span style="color: #de7fa8;">"\"["</span> <span style="color: #de7fa8;">"\"]"</span>))
 
   (--each '(<span style="color: #de7fa8;">"*"</span> <span style="color: #de7fa8;">"/"</span> <span style="color: #de7fa8;">"="</span> <span style="color: #de7fa8;">"~"</span>)
     (sp-local-pair 'org-mode it it))
 
   (sp-local-pair '(emacs-lisp-mode lisp-mode) <span style="color: #de7fa8;">"`"</span> <span style="color: #de7fa8;">"'"</span>)
-  (sp-local-pair '(emacs-lisp-mode lisp-mode) <span style="color: #de7fa8;">"`"</span> nil <span style="color: #729fcf;">:when</span> '(sp-in-string-p))
-  (sp-local-pair '(emacs-lisp-mode lisp-mode) <span style="color: #de7fa8;">"'"</span> nil <span style="color: #729fcf;">:actions</span> nil)
+  (sp-local-pair '(emacs-lisp-mode lisp-mode) <span style="color: #de7fa8;">"`"</span>
+                 nil <span style="color: #729fcf;">:when</span> '(sp-in-string-p))
+  (sp-local-pair '(emacs-lisp-mode lisp-mode) <span style="color: #de7fa8;">"'"</span>
+                 nil <span style="color: #729fcf;">:actions</span> nil)
 
   (setq sp-cancel-autoskip-on-backward-movement nil)
   (setq sp-navigate-consider-stringlike-sexp
@@ -1487,9 +1505,9 @@ expression.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-26" class="outline-4">
-<h4 id="sec-5-3-26"><span class="section-number-4">5.3.26</span> Tex</h4>
-<div class="outline-text-4" id="text-5-3-26">
+<div id="outline-container-sec-5-3-25" class="outline-4">
+<h4 id="sec-5-3-25"><span class="section-number-4">5.3.25</span> Tex</h4>
+<div class="outline-text-4" id="text-5-3-25">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq TeX-auto-save t)
@@ -1519,9 +1537,9 @@ expression.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-27" class="outline-4">
-<h4 id="sec-5-3-27"><span class="section-number-4">5.3.27</span> TRAMP</h4>
-<div class="outline-text-4" id="text-5-3-27">
+<div id="outline-container-sec-5-3-26" class="outline-4">
+<h4 id="sec-5-3-26"><span class="section-number-4">5.3.26</span> TRAMP</h4>
+<div class="outline-text-4" id="text-5-3-26">
 <p>
 Use <i>TRAMP</i> (Transparent Remote Access, Multiple Protocols) to edit
 remote files.
@@ -1532,7 +1550,8 @@ remote files.
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">tramp</span>
   <span style="color: #729fcf;">:config</span>
   (setq tramp-default-method <span style="color: #de7fa8;">"ssh"</span>
-        tramp-persistency-file-name (expand-file-name <span style="color: #de7fa8;">"tramp"</span> my-tmp)))
+        tramp-persistency-file-name
+        (expand-file-name <span style="color: #de7fa8;">"tramp"</span> my-tmp)))
 </pre>
 </div>
 
@@ -1543,9 +1562,9 @@ included this package but never knew it before!!
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-28" class="outline-4">
-<h4 id="sec-5-3-28"><span class="section-number-4">5.3.28</span> Undo-tree</h4>
-<div class="outline-text-4" id="text-5-3-28">
+<div id="outline-container-sec-5-3-27" class="outline-4">
+<h4 id="sec-5-3-27"><span class="section-number-4">5.3.27</span> Undo-tree</h4>
+<div class="outline-text-4" id="text-5-3-27">
 <p>
 Visualize the undo list in a tree-like structure for easy undo and
 redo.
@@ -1563,9 +1582,9 @@ redo.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-29" class="outline-4">
-<h4 id="sec-5-3-29"><span class="section-number-4">5.3.29</span> Uniquify</h4>
-<div class="outline-text-4" id="text-5-3-29">
+<div id="outline-container-sec-5-3-28" class="outline-4">
+<h4 id="sec-5-3-28"><span class="section-number-4">5.3.28</span> Uniquify</h4>
+<div class="outline-text-4" id="text-5-3-28">
 <p>
 Distinguish buffers with the same name.
 </p>
@@ -1583,9 +1602,9 @@ Distinguish buffers with the same name.
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-30" class="outline-4">
-<h4 id="sec-5-3-30"><span class="section-number-4">5.3.30</span> Volatile-highlights</h4>
-<div class="outline-text-4" id="text-5-3-30">
+<div id="outline-container-sec-5-3-29" class="outline-4">
+<h4 id="sec-5-3-29"><span class="section-number-4">5.3.29</span> Volatile-highlights</h4>
+<div class="outline-text-4" id="text-5-3-29">
 <p>
 This package highlights changes just made to the buffer and the
 highlights dispear at the next command.  It gives you a visual
@@ -1598,6 +1617,19 @@ feedback what is being changed.
   <span style="color: #729fcf;">:config</span>
   (volatile-highlights-mode t)
   <span style="color: #729fcf;">:diminish</span> volatile-highlights-mode)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3-30" class="outline-4">
+<h4 id="sec-5-3-30"><span class="section-number-4">5.3.30</span> Writeroom-mode</h4>
+<div class="outline-text-4" id="text-5-3-30">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">writeroom-mode</span>
+  <span style="color: #729fcf;">:bind</span> (<span style="color: #de7fa8;">"C-c w"</span> . writeroom-mode)
+  <span style="color: #729fcf;">:config</span> (setq writeroom-width (+ fill-column 10)))
 </pre>
 </div>
 </div>
@@ -1622,8 +1654,8 @@ accidentally closing Emacs.
 </div>
 
 <p>
-Then load the theme package and enable <code>Hl-mode</code>.  The face has to
-be set after loading the themes.
+Then load the theme package and enable <code>Hl-mode</code>.  The face has to be
+set after loading the themes.
 </p>
 
 <div class="org-src-container">
@@ -1647,11 +1679,10 @@ First of all, it is the encoding system that matters.
 <p>
 I will stick to <code>utf-8</code> whenever possible.  In case of Chinese,
 however, the default encoding under MS Windows is <code>cp936</code> (for
-Simplified Chinese) and <code>cp950</code> (for Big5), <code>gb18030</code> and <code>gb2312</code>
-in some cases.  I include them in the coding system in order to
-open these files correctly.  And note that <code>prefer-coding-system</code>
-always prefers the last preferred encoding, <code>utf-8</code> in the
-following code.
+Simplified Chinese) and <code>cp950</code> (for Big5), <code>gb18030</code> and <code>gb2312</code> in
+some cases.  I include them in the coding system in order to open
+these files correctly.  And note that <code>prefer-coding-system</code> always
+prefers the last preferred encoding, <code>utf-8</code> in the following code.
 </p>
 
 <div class="org-src-container">
@@ -1687,9 +1718,8 @@ Then comes the font for both English and Chinese.
 <div class="outline-text-3" id="text-sec:default_behaviour">
 
 <p>
-Next is the tab thing.  Although I do not use <code>\t</code> for
-indentation, I still set the <code>tab-width</code> in case I need it, e.g.,
-Makefile.
+Next is the tab thing.  Although I do not use <code>\t</code> for indentation, I
+still set the <code>tab-width</code> in case I need it, e.g., Makefile.
 </p>
 
 <div class="org-src-container">
@@ -1701,8 +1731,7 @@ Makefile.
 </div>
 
 <p>
-Typing overwrites selected text.  Expected behaviour of most
-editors.
+Typing overwrites selected text.  Expected behaviour of most editors.
 </p>
 
 <div class="org-src-container">
@@ -1712,8 +1741,8 @@ editors.
 </div>
 
 <p>
-Leaving double space after <code>.</code> makes it easier to delete a whole
-line with <kbd>M-k</kbd>.
+Leaving double space after <code>.</code> makes it easier to delete a whole line
+with <kbd>M-k</kbd>.
 </p>
 
 <div class="org-src-container">
@@ -1743,8 +1772,8 @@ Cleanup spaces and write timestamp if needed.
 </div>
 
 <p>
-I do not need tool bar but I find menu bar helpful in case I
-forget what operations are available in a major mode.
+I do not need tool bar but I find menu bar helpful in case I forget
+what operations are available in a major mode.
 </p>
 
 <div class="org-src-container">
@@ -1767,8 +1796,8 @@ I do not need the scroll bar either.
 </div>
 
 <p>
-Turn on <code>subword-mode</code> so that <kbd>C-right</kbd> moves in step of
-a subword.
+Turn on <code>subword-mode</code> so that <kbd>C-right</kbd> moves in step of a
+subword.
 </p>
 
 <div class="org-src-container">
@@ -1780,10 +1809,11 @@ a subword.
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq frame-title-format
-      '(<span style="color: #de7fa8;">"emacs%@"</span> (<span style="color: #729fcf;">:eval</span> (system-name)) <span style="color: #de7fa8;">": "</span>
-        (<span style="color: #729fcf;">:eval</span> (<span style="color: #729fcf; font-weight: bold;">if</span> (buffer-file-name)
-                   (abbreviate-file-name (buffer-file-name))
-                 <span style="color: #de7fa8;">"%b"</span>)) <span style="color: #de7fa8;">" [%*]"</span>))
+      '(<span style="color: #de7fa8;">"emacs%@"</span>
+        (<span style="color: #729fcf;">:eval</span> (system-name)) <span style="color: #de7fa8;">": "</span>
+        (<span style="color: #729fcf;">:eval</span>
+         (<span style="color: #729fcf; font-weight: bold;">if</span> (buffer-file-name) (abbreviate-file-name (buffer-file-name))
+           <span style="color: #de7fa8;">"%b"</span>)) <span style="color: #de7fa8;">" [%*]"</span>))
 
 (setq visible-bell t)
 
@@ -1808,34 +1838,37 @@ a subword.
 <p>
 Many of the settings above are rather self-evident.  The following
 <i>advice</i> is for <kbd>M-w</kbd>, copy command in Emacs.  By default,
-<kbd>M-w</kbd> operates on a selected region and does nothing when
-no text is selected.  Instead of doing nothing, we <i>advice</i> it to
-copy current line. i.e., where cursor resides, when no region is
-active.
+<kbd>M-w</kbd> operates on a selected region and does nothing when no
+text is selected.  Instead of doing nothing, we <i>advice</i> it to copy
+current line. i.e., where cursor resides, when no region is active.
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">defadvice</span> <span style="color: #fcaf3e; font-weight: bold;">kill-ring-save</span> (before slick-copy activate compile)
-    <span style="color: #babdb6; font-style: italic;">"When called interactively with no active region, copy a single</span>
-<span style="color: #babdb6; font-style: italic;">line instead."</span>
-    (interactive
-     (<span style="color: #729fcf; font-weight: bold;">if</span> mark-active (list (region-beginning) (region-end))
-       (message <span style="color: #de7fa8;">"Copied line"</span>)
-       (list (line-beginning-position)
-             (line-beginning-position 2)))))
+<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">defadvice</span> <span style="color: #fcaf3e; font-weight: bold;">kill-ring-save</span>
+    (before slick-copy activate compile)
+  <span style="color: #babdb6; font-style: italic;">"When called interactively with no active region, copy a single</span>
+<span style="color: #babdb6; font-style: italic;">         line instead."</span>
+  (interactive
+   (<span style="color: #729fcf; font-weight: bold;">if</span> mark-active
+       (list (region-beginning)
+             (region-end))
+     (message <span style="color: #de7fa8;">"Copied line"</span>)
+     (list (line-beginning-position)
+           (line-beginning-position 2)))))
 </pre>
 </div>
 
 <p>
-Backup files in the temp directory instead of clustering
-everywhere with tild-ended files.
+Backup files in the temp directory instead of clustering everywhere
+with tild-ended files.
 </p>
 
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq backup-directory-alist `((<span style="color: #de7fa8;">".*"</span> . ,my-tmp)))
-(setq auto-save-list-file-prefix (expand-file-name <span style="color: #de7fa8;">".saves-"</span> my-tmp))
+(setq auto-save-list-file-prefix
+      (expand-file-name <span style="color: #de7fa8;">".saves-"</span> my-tmp))
 
 (setq backup-by-copying t
       delete-old-versions t
@@ -1856,22 +1889,22 @@ Open read-only files in <code>view-mode</code> minor mode.
 </div>
 
 <p>
-I do not show line numbers at the margin as I do not care.  But I
-do care when I want to jump to a certain line in the buffer.  So
-show me the line numbers only when I'm about to jump to a line.
+I do not show line numbers at the margin as I do not care.  But I do
+care when I want to jump to a certain line in the buffer.  So show me
+the line numbers only when I'm about to jump to a line.
 </p>
 
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">defun</span> <span style="color: #fcaf3e; font-weight: bold;">goto-line-with-feedback</span> ()
-    <span style="color: #babdb6; font-style: italic;">"Show line numbers temporarily, while prompting for the line</span>
-<span style="color: #babdb6; font-style: italic;">number input"</span>
-    (interactive)
-    (<span style="color: #729fcf; font-weight: bold;">unwind-protect</span>
-        (<span style="color: #729fcf; font-weight: bold;">progn</span>
-          (linum-mode 1)
-          (goto-line (read-number <span style="color: #de7fa8;">"Goto line: "</span>)))
-      (linum-mode -1)))
+  <span style="color: #babdb6; font-style: italic;">"Show line numbers temporarily, while prompting for the line</span>
+<span style="color: #babdb6; font-style: italic;">         number input"</span>
+  (interactive)
+  (<span style="color: #729fcf; font-weight: bold;">unwind-protect</span>
+      (<span style="color: #729fcf; font-weight: bold;">progn</span>
+        (linum-mode 1)
+        (goto-line (read-number <span style="color: #de7fa8;">"Goto line: "</span>)))
+    (linum-mode -1)))
 
 (global-set-key [remap goto-line] 'goto-line-with-feedback)
 </pre>
@@ -1904,12 +1937,13 @@ Keybindings for <kbd>Fn</kbd> keys.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #de7fa8;">"&lt;f7&gt;"</span>) 'compile)
-<span style="color: #babdb6; font-style: italic;">;</span><span style="color: #babdb6; font-style: italic;">(global-set-key (kbd "&lt;f8&gt;") 'deft)</span>
-<span style="color: #babdb6; font-style: italic;">;</span><span style="color: #babdb6; font-style: italic;">(global-set-key (kbd "&lt;f9&gt;") 'recentf-open-files)</span>
-<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">f10 - menu</span>
+<pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #de7fa8;">"&lt;f6&gt;"</span>) 'calendar)
+(global-set-key (kbd <span style="color: #de7fa8;">"&lt;f7&gt;"</span>) 'compile)
+(global-set-key (kbd <span style="color: #de7fa8;">"&lt;f8&gt;"</span>) 'deft)
+<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">f9 -- helm-recentf</span>
+<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">f10 -- menu</span>
 (global-set-key (kbd <span style="color: #de7fa8;">"&lt;f11&gt;"</span>) 'ispell)
-<span style="color: #babdb6; font-style: italic;">;</span><span style="color: #babdb6; font-style: italic;">(global-set-key (kbd "&lt;f12&gt;") 'gnus-other-frame)</span>
+<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">f12 -- gnus-other-frame)</span>
 </pre>
 </div>
 </div>
@@ -1938,32 +1972,56 @@ User key bindings usually begin with <kbd>C-c</kbd>.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #babdb6; font-style: italic;">;</span><span style="color: #babdb6; font-style: italic;">C-c a -- my-ag-map</span>
+<pre class="src src-emacs-lisp"><span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-c a -- my-ag-map</span>
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c g"</span>) #'ace-jump-mode)
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c k"</span>) #'browse-kill-ring)
-<span style="color: #babdb6; font-style: italic;">;</span><span style="color: #babdb6; font-style: italic;">C-c m -- my-multiple-cursor-map</span>
+<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-c m -- my-multiple-cursor-map</span>
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c q"</span>) #'auto-fill-mode)
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c r"</span>) #'isearch-query-replace-regexp)
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c o a"</span>) #'org-agenda)
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c o c"</span>) #'org-capture)
+<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-c w -- writeroom-mode</span>
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c ,"</span>) #'color-identifiers-mode)
 
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c C-="</span>) #'align-regexp)
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c C-/"</span>)
-                (function (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-                            (interactive)
-                            (my-apply-region-or-line
-                             'comment-or-uncomment-region))))
+                (function
+                 (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
+                   (interactive)
+                   (my-apply-region-or-line
+                    'comment-or-uncomment-region))))
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c C-\\"</span>)
-                (function (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-                            (interactive)
-                            (my-apply-region-or-para
-                             'indent-region))))
+                (function
+                 (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
+                   (interactive)
+                   (my-apply-region-or-para
+                    'indent-region))))
 
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c &lt;left&gt;"</span>) #'decrease-left-margin)
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c &lt;right&gt;"</span>) #'increase-left-margin)
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c C-&lt;left&gt;"</span>) #'decrease-left-margin)
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c C-&lt;right&gt;"</span>) #'increase-left-margin)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6-3-4" class="outline-4">
+<h4 id="sec-6-3-4"><span class="section-number-4">6.3.4</span> Key logger</h4>
+<div class="outline-text-4" id="text-6-3-4">
+<p>
+Sometimes I want to analyze my Emacs key press frequency.  The
+builtin function <code>open-dribble-file</code> does exactly what I want.  But
+be aware that it logs <i>everything</i>, literally, <i>everything</i>
+including your passwords.  So you may remove this section from your
+configuration files.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(open-dribble-file
+ (expand-file-name
+  (format-time-string <span style="color: #de7fa8;">"~/.emacs.d/.keylog/key-%FT%H%M%S.log"</span>)))
 </pre>
 </div>
 </div>
@@ -2000,7 +2058,9 @@ As a side note, I guess his blog style might be adopted from
 </div>
 </div></div>
 <div id="postamble" class="status">
-<a class="author" href="http://gongzhitaao.org">Zhitao Gong</a> / <span class="date">2015-07-21 Tue 20:44</span><span class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</span>
+<a class="author"
+       href="http://gongzhitaao.org">Zhitao Gong</a> / <span
+       class="date">2015-07-22 Wed 10:51</span><span class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</span>
 </div>
 </body>
 </html>
