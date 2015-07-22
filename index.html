@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Emacs Configurations</title>
-<!-- 2015-07-21 Tue 17:57 -->
+<!-- 2015-07-21 Tue 20:44 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="Zhitao Gong">
@@ -66,7 +66,7 @@ project is hosted with ♥ by Github, here is the <a href="https://github.com/go
 </p>
 
 <p>
-This file is last updated 2015-07-21 17:57.
+This file is last updated 2015-07-21 20:44.
 </p>
 </div>
 </div>
@@ -77,22 +77,19 @@ This file is last updated 2015-07-21 17:57.
 
 <p>
 I use <code>emacs.d/init.el</code> to bootstrap all my Emacs configurations.
-Some package configurations are separated into individula files
-under <code>conf.d/</code> accordingly, following the name convention
-<code>name-conf.org</code>, where <code>name</code> is the name for the mode or package.
-The structure of my <code>emacs.d</code> is shown in Figure
-<a id="fig:dotemacs_folder_structure" name="fig:dotemacs_folder_structure"></a>.
-</p>
-
-<p>
-<a href="./img/dotemacs_folder_structure">./img/dotemacs_folder_structure</a>
-</p>
-
-<p>
 The only thing done in <code>init.el</code> is to load this file, <code>conf.org</code>,
-which includes all our documented configurations.  To avoid
-recursive loading, the <code>init.el</code> content is not included here.  The
-following sections are all the documented configurations.
+which includes all our documented configurations.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">require</span> '<span style="color: #73d216;">org</span>)
+(org-babel-load-file <span style="color: #de7fa8;">"~/.emacs.d/conf.org"</span>)
+</pre>
+</div>
+
+<p>
+The following sections are all the documented configurations.
 </p>
 </div>
 </div>
@@ -114,80 +111,26 @@ utility packages are installed.
 This is how I did, and probably what you are doing.
 </p>
 
+<ol class="org-ol">
+<li>First of all, maintain a list of packages.
+
 <div class="org-src-container">
 
-<pre class="src src-lisp">(<span style="color: #729fcf; font-weight: bold;">defvar</span> <span style="color: #ff2929;">my/package-list</span>
+<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">defvar</span> <span style="color: #ff2929;">my/package-list</span>
   '(
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">package management</span>
-    use-package
 
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">colors</span>
-    color-identifiers-mode dakrone-theme leuven-theme moe-theme
-    naquadah-theme nyan-mode rainbow-mode rainbow-delimiters-mode
-    volatile-highlights google-c-style paren-face
+    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">A super long list of all packages</span>
 
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">utility</span>
-    dash f
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">misc</span>
-    async bbdb deft diminish gnuplot gnuplot-mode
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">python</span>
-    ein
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">auto complete</span>
-    fuzzy popup company
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">editing utilities</span>
-    ace-jump-mode anzu ag expand-region fill-column-indicator
-    ggtags golden-ratio ido-ubiquitous ido-vertical-mode iedit
-    multiple-cursors projectile simple-call-tree simple-call-tree
-    smart-tab+ smartparens smex undo-tree wc-mode windresize
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">statics</span>
-    epl ess ess-R-data-view ess-R-object-popup
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">infrastructure stuff</span>
-    company-restclient restclient
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">LaTeX</span>
-    auctex
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">org-mode</span>
-    org org-plus-contrib htmlize ox-reveal ox-gfm
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">buffer utils</span>
-    popwin dired+ ibuffer
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">ssh</span>
-    ssh-config-mode
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">flycheck</span>
-    flycheck flycheck-tip
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">javascript</span>
-    tern json-mode js2-mode
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">emacs-lisp</span>
-    elisp-slime-nav
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">markup language</span>
-    markdown-mode markdown-mode+ yaml-mode
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">helm</span>
-    helm helm-ag helm-bibtex helm-company helm-dash
-    helm-descbinds helm-flycheck helm-flyspell helm-gist
-    helm-gtags helm-ls-git helm-projectile helm-swoop
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">git</span>
-    diff-hl git-annex git-gutter git-timemachine magit magit-gh-pulls
-    with-editor
-
-    <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">eshell</span>
-    eshell-prompt-extras
     ))
+</pre>
+</div>
+</li>
 
-(<span style="color: #729fcf; font-weight: bold;">require</span> '<span style="color: #73d216;">package</span>)
+<li>Then add official archives and initialize the package system.
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">require</span> '<span style="color: #73d216;">package</span>)
 (setq package-archives
       '((<span style="color: #de7fa8;">"gnu"</span> . <span style="color: #de7fa8;">"http://elpa.gnu.org/packages/"</span>)
         (<span style="color: #de7fa8;">"marmalade"</span> . <span style="color: #de7fa8;">"http://marmalade-repo.org/packages/"</span>)
@@ -197,12 +140,32 @@ This is how I did, and probably what you are doing.
 
 (or (file-exists-p package-user-dir)
     (package-refresh-contents))
+</pre>
+</div>
+</li>
 
-(<span style="color: #729fcf; font-weight: bold;">dolist</span> (pack my/package-list)
+<li>And finally install, if neccessary all the packages.
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">dolist</span> (pack my/package-list)
   (<span style="color: #729fcf; font-weight: bold;">unless</span> (package-installed-p pack)
     (package-install pack)))
 </pre>
 </div>
+</li>
+</ol>
+
+
+<p>
+It works.  But there is one thing I particularly do not like about
+the default packaging system: when updating packages, it
+<i>re-downloads</i> all the outdated package instead of retrieving only
+modified files like <code>git pull</code>.  It takes quite a while to
+uncompress and compile large packages, e.g., <code>ess</code> (Emacs Speaks
+Statistics), <code>org</code>, <code>org-plus-contrib</code> and etc.  And Emacs is
+blocked during this process since it is <i>single-threaded</i>!
+</p>
 </div>
 </div>
 
@@ -211,8 +174,34 @@ This is how I did, and probably what you are doing.
 <div class="outline-text-3" id="text-3-2">
 <p>
 Just found about <a href="http://cask.readthedocs.org/en/latest/index.html">Cask</a>, yet another package manager for Emacs.  See
-<a href="https://cask.readthedocs.org/en/latest/guide/introduction.html">Why Cask?</a>  for the reason of switching to Cask.  All dependencies
+<a href="https://cask.readthedocs.org/en/latest/guide/introduction.html">Why Cask?</a> for the reason of switching to Cask.  All dependencies
 are stored in <code>Cask</code> under <code>.emacs.d/</code>.
+</p>
+
+<p>
+The contents of Cask is as follows (long list of packages are
+omitted for brevity).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(source gnu)
+(source melpa)
+(source marmalade)
+(source org)
+
+(depends-on <span style="color: #de7fa8;">"ace-jump-mode"</span>)
+(depends-on <span style="color: #de7fa8;">"ag"</span>)
+(depends-on <span style="color: #de7fa8;">"anzu"</span>)
+(depends-on <span style="color: #de7fa8;">"async"</span>)
+(depends-on <span style="color: #de7fa8;">"auctex"</span>)
+<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">the (depends-on ...) list goes on and on</span>
+</pre>
+</div>
+
+<p>
+And the following snippet is needed to initialize the <code>cask</code>
+manager.
 </p>
 
 <div class="org-src-container">
@@ -221,6 +210,10 @@ are stored in <code>Cask</code> under <code>.emacs.d/</code>.
 (cask-initialize)
 </pre>
 </div>
+
+<p>
+For more information about Cask, please refer to its <a href="http://cask.readthedocs.org/en/latest/">documentation</a>.
+</p>
 
 <p>
 And as usual, load <code>use-package</code> first which is used for loading
@@ -2007,7 +2000,7 @@ As a side note, I guess his blog style might be adopted from
 </div>
 </div></div>
 <div id="postamble" class="status">
-<a class="author" href="http://gongzhitaao.org">Zhitao Gong</a> / <span class="date">2015-07-21 Tue 17:57</span><span class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</span>
+<a class="author" href="http://gongzhitaao.org">Zhitao Gong</a> / <span class="date">2015-07-21 Tue 20:44</span><span class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</span>
 </div>
 </body>
 </html>
