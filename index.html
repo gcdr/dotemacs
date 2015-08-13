@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2015-08-07 Fri 07:07 -->
+<!-- 2015-08-13 Thu 16:56 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>Emacs Configurations</title>
@@ -72,7 +72,7 @@ is hosted with ♥ by Github, here is the <a href="https://github.com/gongzhitaa
 </p>
 
 <p>
-This file is last updated 2015-08-07 07:07.
+This file is last updated 2015-08-13 16:56.
 </p>
 </div>
 </div>
@@ -709,20 +709,23 @@ Now comes the workhorse, <i>Gnus</i>.
            <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/emacsdotd"</span>
            <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
            <span style="color: #729fcf;">:htmlized-source</span> t)
-          (<span style="color: #de7fa8;">"comp3220-org"</span>
-           <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master"</span>
+          (<span style="color: #de7fa8;">"comp3220-slides"</span>
+           <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/slides"</span>
+           <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"org"</span>
+           <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages"</span>
+           <span style="color: #729fcf;">:publishing-function</span> org-reveal-publish-to-reveal
+           <span style="color: #729fcf;">:htmlized-source</span> t
+           <span style="color: #729fcf;">:recursive</span> t)
+          (<span style="color: #de7fa8;">"comp3220-index"</span>
+           <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/index"</span>
            <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"org"</span>
            <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages"</span>
            <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-           <span style="color: #729fcf;">:htmlized-source</span> t
            <span style="color: #729fcf;">:recursive</span> t)
-          (<span style="color: #de7fa8;">"comp3220-bib"</span>
-           <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master"</span>
-           <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"html"</span>
-           <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages"</span>
-           <span style="color: #729fcf;">:publishing-function</span> org-publish-attachment
-           <span style="color: #729fcf;">:recursive</span> t)
-          (<span style="color: #de7fa8;">"comp3220"</span> <span style="color: #729fcf;">:components</span> (<span style="color: #de7fa8;">"comp3220-org"</span> <span style="color: #de7fa8;">"comp3220-bib"</span>)))))
+          (<span style="color: #de7fa8;">"comp3220"</span> <span style="color: #729fcf;">:components</span> (<span style="color: #de7fa8;">"comp3220-slides"</span> <span style="color: #de7fa8;">"comp3220-index"</span>)))))
+
+(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">ox-reveal</span>
+  <span style="color: #729fcf;">:load-path</span> <span style="color: #de7fa8;">"org-reveal"</span>)
 </pre>
 </div>
 </div>
@@ -2211,7 +2214,7 @@ As a side note, I guess his blog style might be adopted from
 <div id="postamble" class="status">
 <a class="author"
        href="http://gongzhitaao.org">Zhitao Gong</a> / <span
-       class="date">2015-08-07 Fri 07:07</span><span class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.1 (<a href="http://orgmode.org">Org</a> mode 8.3.1)</span>
+       class="date">2015-08-13 Thu 16:56</span><span class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.1 (<a href="http://orgmode.org">Org</a> mode 8.3.1)</span>
 </div>
 </body>
 </html>
