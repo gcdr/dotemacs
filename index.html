@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2015-08-13 Thu 16:56 -->
+<!-- 2015-08-24 Mon 13:56 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>Emacs Configurations</title>
@@ -72,7 +72,7 @@ is hosted with ♥ by Github, here is the <a href="https://github.com/gongzhitaa
 </p>
 
 <p>
-This file is last updated 2015-08-13 16:56.
+This file is last updated 2015-08-24 13:56.
 </p>
 </div>
 </div>
@@ -180,8 +180,8 @@ process since it is <i>single-threaded</i>!
 <div class="outline-text-3" id="text-3-2">
 <p>
 Just found about <a href="http://cask.readthedocs.org/en/latest/index.html">Cask</a>, yet another package manager for Emacs.  See
-<a href="https://cask.readthedocs.org/en/latest/guide/introduction.html">Why Cask?</a> for the reason of switching to Cask.  All dependencies are
-stored in <code>Cask</code> under <code>.emacs.d/</code>.
+<a href="https://cask.readthedocs.org/en/latest/guide/introduction.html">Why Cask?</a> for the reason of switching to Cask.  All dependencies
+are stored in <code>Cask</code> under <code>.emacs.d/</code>.
 </p>
 
 <p>
@@ -540,7 +540,7 @@ Now comes the workhorse, <i>Gnus</i>.
 <div class="outline-text-3" id="text-sec:orgmode">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">org</span>
+<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">org-install</span>
   <span style="color: #729fcf;">:if</span> (display-graphic-p)
   <span style="color: #729fcf;">:init</span>
   (<span style="color: #729fcf; font-weight: bold;">let</span> ((my-org-modules
@@ -551,15 +551,13 @@ Now comes the workhorse, <i>Gnus</i>.
            org-gnus
            org-habit
            org-table
-           ox-latex
-           ox-bibtex)))
+           ox-latex)))
     (<span style="color: #729fcf; font-weight: bold;">dolist</span> (m my-org-modules)
       (add-to-list 'org-modules m)))
   <span style="color: #729fcf;">:config</span>
-  (org-reload)
+  (mapc 'require org-modules)
 
   <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Where I add todos.</span>
-  (add-hook 'org-mode-hook 'turn-on-reftex)
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
   (setq org-list-description-max-indent 5)
@@ -572,8 +570,6 @@ Now comes the workhorse, <i>Gnus</i>.
   (add-to-list 'org-structure-template-alist '(<span style="color: #de7fa8;">"O"</span> <span style="color: #de7fa8;">"#+OPTIONS: ?"</span> <span style="color: #de7fa8;">""</span>))
   (add-to-list 'org-structure-template-alist '(<span style="color: #de7fa8;">"T"</span> <span style="color: #de7fa8;">"#+TITLE: ?"</span> <span style="color: #de7fa8;">""</span>))
 
-  (define-key org-mode-map (kbd <span style="color: #de7fa8;">"C-c )"</span>) #'reftex-reference)
-  (define-key org-mode-map (kbd <span style="color: #de7fa8;">"C-c ["</span>) #'reftex-citation)
   (define-key org-mode-map [remap fill-paragraph] #'org-fill-paragraph)
   (define-key org-mode-map (kbd <span style="color: #de7fa8;">"C-c C-\\"</span>)
     (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
@@ -582,14 +578,13 @@ Now comes the workhorse, <i>Gnus</i>.
 
   (setq org-directory (expand-file-name <span style="color: #de7fa8;">"org"</span> my-personal-dir))
 
-  (setq org-time-stamp-custom-formats
-        '(<span style="color: #de7fa8;">"&lt;%m/%d/%y %a&gt;"</span> . <span style="color: #de7fa8;">"&lt;%Y-%m-%d %a %R %z&gt;"</span>))
-
   <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Recursive update todo statistics</span>
   (setq org-hierarchical-todo-statistics nil)
 
   <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Show events from diary</span>
   (setq org-agenda-include-diary t)
+
+  (setq org-agenda-skip-scheduled-if-deadline-is-shown 'not-today)
 
   <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Resolve open clocks if the user if idle more than 10 minutes.</span>
   (setq org-clock-idle-time 10)
@@ -611,10 +606,11 @@ Now comes the workhorse, <i>Gnus</i>.
         org-html-head-include-scripts nil)
 
   <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Postamble.</span>
-  (setq org-html-postamble t org-html-postamble-format
+  (setq org-html-postamble t
+        org-html-postamble-format
         '((<span style="color: #de7fa8;">"en"</span> <span style="color: #de7fa8;">"&lt;a class=\"author\"</span>
-<span style="color: #de7fa8;">       href=\"http://gongzhitaao.org\"&gt;%a&lt;/a&gt; / &lt;span</span>
-<span style="color: #de7fa8;">       class=\"date\"&gt;%T&lt;/span&gt;&lt;span class=\"creator\"&gt;%c&lt;/span&gt;"</span>)))
+<span style="color: #de7fa8;">         href=\"http://gongzhitaao.org\"&gt;%a&lt;/a&gt; / &lt;span</span>
+<span style="color: #de7fa8;">         class=\"date\"&gt;%T&lt;/span&gt;&lt;span class=\"creator\"&gt;%c&lt;/span&gt;"</span>)))
 
   <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Use prefix key as tag selection</span>
   (setq org-use-fast-todo-selection t)
@@ -647,6 +643,9 @@ Now comes the workhorse, <i>Gnus</i>.
 
   (setq org-agenda-repeating-timestamp-show-all t)
   (setq org-agenda-show-all-dates t)
+
+  (setq org-time-stamp-custom-formats
+        '(<span style="color: #de7fa8;">"&lt;%m/%d/%y %a&gt;"</span> . <span style="color: #de7fa8;">"&lt;%Y-%m-%d %a %R %z&gt;"</span>))
 
   (setq org-agenda-prefix-format
         '((agenda . <span style="color: #de7fa8;">" %i %-12:c%?-12t% s"</span>)
@@ -682,26 +681,6 @@ Now comes the workhorse, <i>Gnus</i>.
   (setq org-latex-pdf-process
         (quote (<span style="color: #de7fa8;">"texi2dvi --pdf --clean --verbose --batch %f"</span>)))
 
-  (add-to-list
-   'org-latex-classes
-   '(<span style="color: #de7fa8;">"scrartcl"</span>
-     <span style="color: #de7fa8;">"\\documentclass{scrartcl} [NO-DEFAULT-PACKAGES] [NO-PACKAGES] [EXTRA]"</span>
-     (<span style="color: #de7fa8;">"\\section{%s}"</span> . <span style="color: #de7fa8;">"\\section*{%s}"</span>)
-     (<span style="color: #de7fa8;">"\\subsection{%s}"</span> . <span style="color: #de7fa8;">"\\subsection*{%s}"</span>)
-     (<span style="color: #de7fa8;">"\\subsubsection{%s}"</span> . <span style="color: #de7fa8;">"\\subsubsection*{%s}"</span>)
-     (<span style="color: #de7fa8;">"\\paragraph{%s}"</span> . <span style="color: #de7fa8;">"\\paragraph*{%s}"</span>)
-     (<span style="color: #de7fa8;">"\\subparagraph{%s}"</span> . <span style="color: #de7fa8;">"\\subparagraph*{%s}"</span>)))
-
-  (add-to-list
-   'org-latex-classes
-   '(<span style="color: #de7fa8;">"scrreprt"</span>
-     <span style="color: #de7fa8;">"\\documentclass{scrreprt} [NO-DEFAULT-PACKAGES] [NO-PACKAGES] [EXTRA]"</span>
-     (<span style="color: #de7fa8;">"\\section{%s}"</span> . <span style="color: #de7fa8;">"\\section*{%s}"</span>)
-     (<span style="color: #de7fa8;">"\\subsection{%s}"</span> . <span style="color: #de7fa8;">"\\subsection*{%s}"</span>)
-     (<span style="color: #de7fa8;">"\\subsubsection{%s}"</span> . <span style="color: #de7fa8;">"\\subsubsection*{%s}"</span>)
-     (<span style="color: #de7fa8;">"\\paragraph{%s}"</span> . <span style="color: #de7fa8;">"\\paragraph*{%s}"</span>)
-     (<span style="color: #de7fa8;">"\\subparagraph{%s}"</span> . <span style="color: #de7fa8;">"\\subparagraph*{%s}"</span>)))
-
   (setq org-publish-project-alist
         '((<span style="color: #de7fa8;">"emacsdotd"</span>
            <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/.emacs.d/"</span>
@@ -709,23 +688,41 @@ Now comes the workhorse, <i>Gnus</i>.
            <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/emacsdotd"</span>
            <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
            <span style="color: #729fcf;">:htmlized-source</span> t)
-          (<span style="color: #de7fa8;">"comp3220-slides"</span>
+          (<span style="color: #de7fa8;">"comp3220-slides-content"</span>
            <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/slides"</span>
            <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"org"</span>
            <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages"</span>
            <span style="color: #729fcf;">:publishing-function</span> org-reveal-publish-to-reveal
            <span style="color: #729fcf;">:htmlized-source</span> t
            <span style="color: #729fcf;">:recursive</span> t)
-          (<span style="color: #de7fa8;">"comp3220-index"</span>
-           <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/index"</span>
+          (<span style="color: #de7fa8;">"comp3220-articles-content"</span>
+           <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/article"</span>
            <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"org"</span>
            <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages"</span>
            <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
            <span style="color: #729fcf;">:recursive</span> t)
-          (<span style="color: #de7fa8;">"comp3220"</span> <span style="color: #729fcf;">:components</span> (<span style="color: #de7fa8;">"comp3220-slides"</span> <span style="color: #de7fa8;">"comp3220-index"</span>)))))
+          (<span style="color: #de7fa8;">"comp3220-slides-static"</span>
+           <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/slides"</span>
+           <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"svg</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">jpg</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">png"</span>
+           <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages"</span>
+           <span style="color: #729fcf;">:publishing-function</span> org-publish-attachment
+           <span style="color: #729fcf;">:recursive</span> t)
+          (<span style="color: #de7fa8;">"comp3220-articles-static"</span>
+           <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/articles"</span>
+           <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"svg</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">jpg</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">png"</span>
+           <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages"</span>
+           <span style="color: #729fcf;">:publishing-function</span> org-publish-attachment
+           <span style="color: #729fcf;">:recursive</span> t)
+          (<span style="color: #de7fa8;">"comp3220-slides"</span> <span style="color: #729fcf;">:components</span> (<span style="color: #de7fa8;">"comp3220-slides-static"</span> <span style="color: #de7fa8;">"comp3220-slides-content"</span>))
+          (<span style="color: #de7fa8;">"comp3220-articles"</span> <span style="color: #729fcf;">:components</span> (<span style="color: #de7fa8;">"comp3220-articles-static"</span> <span style="color: #de7fa8;">"comp3220-articles-content"</span>)))))
 
 (<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">ox-reveal</span>
-  <span style="color: #729fcf;">:load-path</span> <span style="color: #de7fa8;">"org-reveal"</span>)
+  <span style="color: #729fcf;">:load-path</span> <span style="color: #de7fa8;">"~/.emacs.d/org-reveal"</span>
+  <span style="color: #729fcf;">:config</span>
+  (setq org-reveal-title-slide-template
+        <span style="color: #de7fa8;">"&lt;h1 class=\"title\"&gt;%t&lt;/h1&gt;</span>
+<span style="color: #de7fa8;">&lt;p class=\"author\"&gt;%a&lt;/p&gt;</span>
+<span style="color: #de7fa8;">&lt;p class=\"email\"&gt;%e&lt;/p&gt;"</span>))
 </pre>
 </div>
 </div>
@@ -1027,20 +1024,8 @@ has nice integration with Gnus.
 </div>
 
 <div id="outline-container-orgheadline23" class="outline-4">
-<h4 id="orgheadline23"><span class="section-number-4">5.4.8</span> Browse-kill-ring</h4>
+<h4 id="orgheadline23"><span class="section-number-4">5.4.8</span> Deft</h4>
 <div class="outline-text-4" id="text-5-4-8">
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">browse-kill-ring</span>
-  <span style="color: #729fcf;">:bind</span> (<span style="color: #de7fa8;">"C-c k"</span> . browse-kill-ring))
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgheadline24" class="outline-4">
-<h4 id="orgheadline24"><span class="section-number-4">5.4.9</span> Deft</h4>
-<div class="outline-text-4" id="text-5-4-9">
 <blockquote>
 <p>
 <a href="http://jblevins.org/projects/deft/">Deft</a> is an Emacs mode for quickly browsing, filtering, and editing
@@ -1067,9 +1052,9 @@ directories of plain text notes, inspired by <a href="http://notational.net/">No
 </div>
 </div>
 
-<div id="outline-container-orgheadline25" class="outline-4">
-<h4 id="orgheadline25"><span class="section-number-4">5.4.10</span> Dired</h4>
-<div class="outline-text-4" id="text-5-4-10">
+<div id="outline-container-orgheadline24" class="outline-4">
+<h4 id="orgheadline24"><span class="section-number-4">5.4.9</span> Dired</h4>
+<div class="outline-text-4" id="text-5-4-9">
 <p>
 It is a really cool bultin package of which I have not yet leveraged
 the full power.
@@ -1090,9 +1075,9 @@ the full power.
 </div>
 </div>
 
-<div id="outline-container-orgheadline26" class="outline-4">
-<h4 id="orgheadline26"><span class="section-number-4">5.4.11</span> Display-time</h4>
-<div class="outline-text-4" id="text-5-4-11">
+<div id="outline-container-orgheadline25" class="outline-4">
+<h4 id="orgheadline25"><span class="section-number-4">5.4.10</span> Display-time</h4>
+<div class="outline-text-4" id="text-5-4-10">
 <p>
 Display time and unread mail notification, if not in terminal, in
 the mode line.
@@ -1122,6 +1107,18 @@ the mode line.
                 <span style="color: #729fcf;">:ascent</span> center)))
 
 (display-time)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline26" class="outline-4">
+<h4 id="orgheadline26"><span class="section-number-4">5.4.11</span> Drag-stuff-mode</h4>
+<div class="outline-text-4" id="text-5-4-11">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">drag-stuff</span>
+  <span style="color: #729fcf;">:bind</span> (<span style="color: #de7fa8;">"C-c d"</span> . drag-stuff-mode))
 </pre>
 </div>
 </div>
@@ -1432,7 +1429,7 @@ What is <code>midnight-mode</code> for?  Included but never used&#x2026;
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">multiple-cursors</span>
   <span style="color: #729fcf;">:defines</span> my-multiple-cursors-map
-  <span style="color: #729fcf;">:bind-keymap</span> (<span style="color: #de7fa8;">"C-c m"</span> . my-multiple-cursors-map)
+  <span style="color: #729fcf;">:bind-keymap</span> (<span style="color: #de7fa8;">"C-c M"</span> . my-multiple-cursors-map)
   <span style="color: #729fcf;">:config</span>
   (<span style="color: #729fcf; font-weight: bold;">defvar</span> <span style="color: #ff2929;">my-multiple-cursors-map</span>
     (<span style="color: #729fcf; font-weight: bold;">let</span> ((map (make-sparse-keymap)))
@@ -2127,9 +2124,10 @@ User key bindings usually begin with <kbd>C-c</kbd>.
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-c a -- my-ag-map</span>
+<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-c d -- drag-stuff-mode</span>
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c g"</span>) #'ace-jump-mode)
-<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-k k -- browse-kill-ring</span>
-<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-c m -- my-multiple-cursor-map</span>
+(global-set-key (kbd <span style="color: #de7fa8;">"C-c m"</span>) #'magit-status)
+<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-c M -- my-multiple-cursor-map</span>
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c q"</span>) #'auto-fill-mode)
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c r"</span>) #'isearch-query-replace-regexp)
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c o a"</span>) #'org-agenda)
@@ -2213,8 +2211,8 @@ As a side note, I guess his blog style might be adopted from
 </div></div>
 <div id="postamble" class="status">
 <a class="author"
-       href="http://gongzhitaao.org">Zhitao Gong</a> / <span
-       class="date">2015-08-13 Thu 16:56</span><span class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.1 (<a href="http://orgmode.org">Org</a> mode 8.3.1)</span>
+         href="http://gongzhitaao.org">Zhitao Gong</a> / <span
+         class="date">2015-08-24 Mon 13:56</span><span class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.1 (<a href="http://orgmode.org">Org</a> mode 8.3.1)</span>
 </div>
 </body>
 </html>
