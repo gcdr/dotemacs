@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2015-11-20 Fri 08:28 -->
+<!-- 2015-11-21 Sat 10:13 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>Emacs Configurations</title>
@@ -70,7 +70,7 @@ is hosted with ♥ by Github, here is the <a href="https://github.com/gongzhitaa
 </p>
 
 <p>
-This file is last updated 2015-11-20 08:28.
+This file is last updated 2015-11-21 10:13.
 </p>
 </div>
 </div>
@@ -667,6 +667,8 @@ Now comes the workhorse, <i>Gnus</i>.
 
     <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">(require 'ox-latex)</span>
 
+    (setq org-latex-prefer-user-labels t)
+
     (setq org-latex-pdf-process
           (quote (<span style="color: #de7fa8;">"texi2dvi --pdf --clean --verbose --batch %f"</span>)))
 
@@ -720,132 +722,132 @@ Now comes the workhorse, <i>Gnus</i>.
 <span style="color: #de7fa8;">           class=\"date\"&gt;%T&lt;/span&gt;&lt;span class=\"creator\"&gt;%c&lt;/span&gt;"</span>)))
 
     (setq
-   org-publish-project-alist
-   '((<span style="color: #de7fa8;">"emacsdotd"</span>
-      <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/.gongzhitaao/emacs.d"</span>
-      <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"org"</span>
-      <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/emacsdotd"</span>
-      <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-      <span style="color: #729fcf;">:htmlized-source</span> t
-      <span style="color: #729fcf;">:completion-function</span>
-      (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-        (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
-                       <span style="color: #de7fa8;">"README.html"</span>
-                       <span style="color: #de7fa8;">"~/Documents/emacsdotd/"</span>))
-              (target (expand-file-name
-                       <span style="color: #de7fa8;">"index.html"</span>
-                       <span style="color: #de7fa8;">"~/Documents/emacsdotd/"</span>)))
-          (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
-              (<span style="color: #729fcf; font-weight: bold;">progn</span>
-                (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
-                    (delete-file target))
-                (rename-file source target))))))
-     (<span style="color: #de7fa8;">"comp3220-slide"</span>
-      <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/slide"</span>
-      <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages/slide"</span>
-      <span style="color: #729fcf;">:publishing-function</span> org-beamer-publish-to-pdf
-      <span style="color: #729fcf;">:htmlized-source</span> t)
-     (<span style="color: #de7fa8;">"comp3220-homework"</span>
-      <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/homework"</span>
-      <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages/homework"</span>
-      <span style="color: #729fcf;">:publishing-function</span> org-latex-publish-to-pdf
-      <span style="color: #729fcf;">:htmlized-source</span> t)
-     (<span style="color: #de7fa8;">"comp3220-exam"</span>
-      <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/exam"</span>
-      <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages/exam"</span>
-      <span style="color: #729fcf;">:publishing-function</span> org-latex-publish-to-pdf
-      <span style="color: #729fcf;">:htmlized-source</span> t)
-     (<span style="color: #de7fa8;">"comp3220-homepage"</span>
-      <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/homepage"</span>
-      <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages/"</span>
-      <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-      <span style="color: #729fcf;">:htmlized-source</span> t)
-     (<span style="color: #de7fa8;">"comp3220"</span> <span style="color: #729fcf;">:components</span> (<span style="color: #de7fa8;">"comp3220-homepage"</span>
-                              <span style="color: #de7fa8;">"comp3220-slide"</span>
-                              <span style="color: #de7fa8;">"comp3220-homework"</span>
-                              <span style="color: #de7fa8;">"comp3220-exam"</span>))
-     (<span style="color: #de7fa8;">"malware-detection-doc"</span>
-      <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/malware-detection/master"</span>
-      <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/malware-detection/gh-pages"</span>
-      <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-      <span style="color: #729fcf;">:htmlized-source</span> t
-      <span style="color: #729fcf;">:completion-function</span>
-      (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-        (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
-                       <span style="color: #de7fa8;">"README.html"</span>
-                       <span style="color: #de7fa8;">"~/Documents/malware-detection/gh-pages"</span>))
-              (target (expand-file-name
-                       <span style="color: #de7fa8;">"index.html"</span>
-                       <span style="color: #de7fa8;">"~/Documents/malware-detection/gh-pages"</span>)))
-          (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
-              (<span style="color: #729fcf; font-weight: bold;">progn</span>
-                (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
-                    (delete-file target))
-                (rename-file source target))))))
-     (<span style="color: #de7fa8;">"malware-detection-static"</span>
-      <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/malware-detection/master"</span>
-      <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/malware-detection/gh-pages"</span>
-      <span style="color: #729fcf;">:publishing-function</span> org-publish-attachment
-      <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"css</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">js</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">png</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">jpg</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">gif</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">pdf</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">svg"</span>
-      <span style="color: #729fcf;">:recursive</span> t)
-     (<span style="color: #de7fa8;">"malware-detection"</span> <span style="color: #729fcf;">:components</span> (<span style="color: #de7fa8;">"malware-detection-doc"</span>
-                                       <span style="color: #de7fa8;">"malware-detection-static"</span>))
-     (<span style="color: #de7fa8;">"abide"</span>
-      <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/abide/master"</span>
-      <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/abide/gh-pages"</span>
-      <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-      <span style="color: #729fcf;">:htmlized-source</span> t
-      <span style="color: #729fcf;">:completion-function</span>
-      (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-        (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
-                       <span style="color: #de7fa8;">"README.html"</span>
-                       <span style="color: #de7fa8;">"~/Documents/abide/gh-pages"</span>))
-              (target (expand-file-name
-                       <span style="color: #de7fa8;">"index.html"</span>
-                       <span style="color: #de7fa8;">"~/Documents/abide/gh-pages"</span>)))
-          (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
-              (<span style="color: #729fcf; font-weight: bold;">progn</span>
-                (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
-                    (delete-file target))
-                (rename-file source target))))))
+     org-publish-project-alist
+     '((<span style="color: #de7fa8;">"emacsdotd"</span>
+        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Dropbox/dotfiles/emacs.d"</span>
+        <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"org"</span>
+        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/emacsdotd"</span>
+        <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
+        <span style="color: #729fcf;">:htmlized-source</span> t
+        <span style="color: #729fcf;">:completion-function</span>
+        (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
+          (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
+                         <span style="color: #de7fa8;">"README.html"</span>
+                         <span style="color: #de7fa8;">"~/Documents/emacsdotd/"</span>))
+                (target (expand-file-name
+                         <span style="color: #de7fa8;">"index.html"</span>
+                         <span style="color: #de7fa8;">"~/Documents/emacsdotd/"</span>)))
+            (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
+                (<span style="color: #729fcf; font-weight: bold;">progn</span>
+                  (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
+                      (delete-file target))
+                  (rename-file source target))))))
+       (<span style="color: #de7fa8;">"comp3220-slide"</span>
+        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/slide"</span>
+        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages/slide"</span>
+        <span style="color: #729fcf;">:publishing-function</span> org-beamer-publish-to-pdf
+        <span style="color: #729fcf;">:htmlized-source</span> t)
+       (<span style="color: #de7fa8;">"comp3220-homework"</span>
+        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/homework"</span>
+        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages/homework"</span>
+        <span style="color: #729fcf;">:publishing-function</span> org-latex-publish-to-pdf
+        <span style="color: #729fcf;">:htmlized-source</span> t)
+       (<span style="color: #de7fa8;">"comp3220-exam"</span>
+        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/exam"</span>
+        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages/exam"</span>
+        <span style="color: #729fcf;">:publishing-function</span> org-latex-publish-to-pdf
+        <span style="color: #729fcf;">:htmlized-source</span> t)
+       (<span style="color: #de7fa8;">"comp3220-homepage"</span>
+        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/homepage"</span>
+        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages/"</span>
+        <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
+        <span style="color: #729fcf;">:htmlized-source</span> t)
+       (<span style="color: #de7fa8;">"comp3220"</span> <span style="color: #729fcf;">:components</span> (<span style="color: #de7fa8;">"comp3220-homepage"</span>
+                                <span style="color: #de7fa8;">"comp3220-slide"</span>
+                                <span style="color: #de7fa8;">"comp3220-homework"</span>
+                                <span style="color: #de7fa8;">"comp3220-exam"</span>))
+       (<span style="color: #de7fa8;">"malware-detection-doc"</span>
+        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/malware-detection/master"</span>
+        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/malware-detection/gh-pages"</span>
+        <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
+        <span style="color: #729fcf;">:htmlized-source</span> t
+        <span style="color: #729fcf;">:completion-function</span>
+        (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
+          (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
+                         <span style="color: #de7fa8;">"README.html"</span>
+                         <span style="color: #de7fa8;">"~/Documents/malware-detection/gh-pages"</span>))
+                (target (expand-file-name
+                         <span style="color: #de7fa8;">"index.html"</span>
+                         <span style="color: #de7fa8;">"~/Documents/malware-detection/gh-pages"</span>)))
+            (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
+                (<span style="color: #729fcf; font-weight: bold;">progn</span>
+                  (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
+                      (delete-file target))
+                  (rename-file source target))))))
+       (<span style="color: #de7fa8;">"malware-detection-static"</span>
+        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/malware-detection/master"</span>
+        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/malware-detection/gh-pages"</span>
+        <span style="color: #729fcf;">:publishing-function</span> org-publish-attachment
+        <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"css</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">js</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">png</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">jpg</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">gif</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">pdf</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">svg"</span>
+        <span style="color: #729fcf;">:recursive</span> t)
+       (<span style="color: #de7fa8;">"malware-detection"</span> <span style="color: #729fcf;">:components</span> (<span style="color: #de7fa8;">"malware-detection-doc"</span>
+                                         <span style="color: #de7fa8;">"malware-detection-static"</span>))
+       (<span style="color: #de7fa8;">"abide"</span>
+        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/abide/master"</span>
+        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/abide/gh-pages"</span>
+        <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
+        <span style="color: #729fcf;">:htmlized-source</span> t
+        <span style="color: #729fcf;">:completion-function</span>
+        (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
+          (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
+                         <span style="color: #de7fa8;">"README.html"</span>
+                         <span style="color: #de7fa8;">"~/Documents/abide/gh-pages"</span>))
+                (target (expand-file-name
+                         <span style="color: #de7fa8;">"index.html"</span>
+                         <span style="color: #de7fa8;">"~/Documents/abide/gh-pages"</span>)))
+            (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
+                (<span style="color: #729fcf; font-weight: bold;">progn</span>
+                  (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
+                      (delete-file target))
+                  (rename-file source target))))))
 
-     (<span style="color: #de7fa8;">"rbm"</span>
-      <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/rbm/master"</span>
-      <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/rbm/gh-pages"</span>
-      <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-      <span style="color: #729fcf;">:htmlized-source</span> t
-      <span style="color: #729fcf;">:completion-function</span>
-      (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-        (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
-                       <span style="color: #de7fa8;">"README.html"</span>
-                       <span style="color: #de7fa8;">"~/Documents/rbm/gh-pages"</span>))
-              (target (expand-file-name
-                       <span style="color: #de7fa8;">"index.html"</span>
-                       <span style="color: #de7fa8;">"~/Documents/rbm/gh-pages"</span>)))
-          (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
-              (<span style="color: #729fcf; font-weight: bold;">progn</span>
-                (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
-                    (delete-file target))
-                (rename-file source target))))))
+       (<span style="color: #de7fa8;">"rbm"</span>
+        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/rbm/master"</span>
+        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/rbm/gh-pages"</span>
+        <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
+        <span style="color: #729fcf;">:htmlized-source</span> t
+        <span style="color: #729fcf;">:completion-function</span>
+        (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
+          (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
+                         <span style="color: #de7fa8;">"README.html"</span>
+                         <span style="color: #de7fa8;">"~/Documents/rbm/gh-pages"</span>))
+                (target (expand-file-name
+                         <span style="color: #de7fa8;">"index.html"</span>
+                         <span style="color: #de7fa8;">"~/Documents/rbm/gh-pages"</span>)))
+            (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
+                (<span style="color: #729fcf; font-weight: bold;">progn</span>
+                  (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
+                      (delete-file target))
+                  (rename-file source target))))))
 
-     (<span style="color: #de7fa8;">"orgcss"</span>
-      <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/orgcss/master/app"</span>
-      <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/orgcss/master/dist"</span>
-      <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-      <span style="color: #729fcf;">:htmlized-source</span> t
-      <span style="color: #729fcf;">:completion-function</span>
-      (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-        (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
-                       <span style="color: #de7fa8;">"README.html"</span>
-                       <span style="color: #de7fa8;">"~/Documents/orgcss/master/app"</span>))
-              (target (expand-file-name
-                       <span style="color: #de7fa8;">"index.html"</span>
-                       <span style="color: #de7fa8;">"~/Documents/orgcss/master/dist"</span>)))
-          (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
-              (<span style="color: #729fcf; font-weight: bold;">progn</span>
-                (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
-                    (delete-file target))
-                (rename-file source target)))))))))
+       (<span style="color: #de7fa8;">"orgcss"</span>
+        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/orgcss/master/app"</span>
+        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/orgcss/master/dist"</span>
+        <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
+        <span style="color: #729fcf;">:htmlized-source</span> t
+        <span style="color: #729fcf;">:completion-function</span>
+        (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
+          (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
+                         <span style="color: #de7fa8;">"README.html"</span>
+                         <span style="color: #de7fa8;">"~/Documents/orgcss/master/app"</span>))
+                (target (expand-file-name
+                         <span style="color: #de7fa8;">"index.html"</span>
+                         <span style="color: #de7fa8;">"~/Documents/orgcss/master/dist"</span>)))
+            (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
+                (<span style="color: #729fcf; font-weight: bold;">progn</span>
+                  (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
+                      (delete-file target))
+                  (rename-file source target)))))))))
 </pre>
 </div>
 </div>
@@ -2365,7 +2367,7 @@ As a side note, I guess his blog style might be adopted from
 <div id="postamble" class="status">
 <a class="author"
          href="http://gongzhitaao.org">Zhitao Gong</a> / <span
-         class="date">2015-11-20 Fri 08:28</span><span class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.3.2)</span>
+         class="date">2015-11-21 Sat 10:13</span><span class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.3.2)</span>
 </div>
 </body>
 </html>
