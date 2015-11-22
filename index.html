@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2015-11-21 Sat 10:13 -->
+<!-- 2015-11-22 Sun 16:16 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>Emacs Configurations</title>
@@ -34,7 +34,7 @@ after a while.
 <li><a href="#sec:bootstrap">2. Bootstrap</a></li>
 <li><a href="#sec:pacman">3. Package Manager</a>
 <ul>
-<li><a href="#orgheadline1">3.1. <i>Deprecated</i> Manager</a></li>
+<li><a href="#orgheadline1">3.1. Manager&#xa0;&#xa0;&#xa0;<span class="tag"><span class="deprecated">deprecated</span></span></a></li>
 <li><a href="#orgheadline2">3.2. Preferred Way</a></li>
 </ul>
 </li>
@@ -70,7 +70,7 @@ is hosted with ♥ by Github, here is the <a href="https://github.com/gongzhitaa
 </p>
 
 <p>
-This file is last updated 2015-11-21 10:13.
+This file is last updated 2015-11-22 16:16.
 </p>
 </div>
 </div>
@@ -107,7 +107,7 @@ utility packages are installed.
 </div>
 
 <div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1"><span class="section-number-3">3.1</span> <i>Deprecated</i> Manager</h3>
+<h3 id="orgheadline1"><span class="section-number-3">3.1</span> Manager&#xa0;&#xa0;&#xa0;<span class="tag"><span class="deprecated">deprecated</span></span></h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 This is how I did, and probably what you are doing.
@@ -312,8 +312,8 @@ Then follows some helper functions.
 </div>
 </div>
 
-<div id="outline-container-orgheadline50" class="outline-2">
-<h2 id="sec:packmode"><a id="orgheadline50"></a><span class="section-number-2">5</span> Packages and Modes</h2>
+<div id="outline-container-orgheadline48" class="outline-2">
+<h2 id="sec:packmode"><a id="orgheadline48"></a><span class="section-number-2">5</span> Packages and Modes</h2>
 <div class="outline-text-2" id="text-sec:packmode">
 <p>
 This section contains goodies that enpower Emacs.  Two of the most
@@ -571,10 +571,6 @@ Now comes the workhorse, <i>Gnus</i>.
     (add-to-list 'org-structure-template-alist '(<span style="color: #de7fa8;">"T"</span> <span style="color: #de7fa8;">"#+TITLE: ?"</span> <span style="color: #de7fa8;">""</span>))
 
     (define-key org-mode-map [remap fill-paragraph] #'org-fill-paragraph)
-    (define-key org-mode-map (kbd <span style="color: #de7fa8;">"C-c C-\\"</span>)
-      (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-        (interactive)
-        (my-apply-region-or-para 'org-indent-region)))
 
     (setq org-directory (expand-file-name <span style="color: #de7fa8;">"org"</span> my-personal-dir))
 
@@ -711,7 +707,7 @@ Now comes the workhorse, <i>Gnus</i>.
 
     (setq org-html-doctype <span style="color: #de7fa8;">"html5"</span>
           org-html-html5-fancy t
-          org-html-head-include-default-style t
+          org-html-head-include-default-style nil
           org-html-head-include-scripts nil)
 
     <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Postamble.</span>
@@ -721,133 +717,7 @@ Now comes the workhorse, <i>Gnus</i>.
 <span style="color: #de7fa8;">           href=\"http://gongzhitaao.org\"&gt;%a&lt;/a&gt; / &lt;span</span>
 <span style="color: #de7fa8;">           class=\"date\"&gt;%T&lt;/span&gt;&lt;span class=\"creator\"&gt;%c&lt;/span&gt;"</span>)))
 
-    (setq
-     org-publish-project-alist
-     '((<span style="color: #de7fa8;">"emacsdotd"</span>
-        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Dropbox/dotfiles/emacs.d"</span>
-        <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"org"</span>
-        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/emacsdotd"</span>
-        <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-        <span style="color: #729fcf;">:htmlized-source</span> t
-        <span style="color: #729fcf;">:completion-function</span>
-        (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-          (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
-                         <span style="color: #de7fa8;">"README.html"</span>
-                         <span style="color: #de7fa8;">"~/Documents/emacsdotd/"</span>))
-                (target (expand-file-name
-                         <span style="color: #de7fa8;">"index.html"</span>
-                         <span style="color: #de7fa8;">"~/Documents/emacsdotd/"</span>)))
-            (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
-                (<span style="color: #729fcf; font-weight: bold;">progn</span>
-                  (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
-                      (delete-file target))
-                  (rename-file source target))))))
-       (<span style="color: #de7fa8;">"comp3220-slide"</span>
-        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/slide"</span>
-        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages/slide"</span>
-        <span style="color: #729fcf;">:publishing-function</span> org-beamer-publish-to-pdf
-        <span style="color: #729fcf;">:htmlized-source</span> t)
-       (<span style="color: #de7fa8;">"comp3220-homework"</span>
-        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/homework"</span>
-        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages/homework"</span>
-        <span style="color: #729fcf;">:publishing-function</span> org-latex-publish-to-pdf
-        <span style="color: #729fcf;">:htmlized-source</span> t)
-       (<span style="color: #de7fa8;">"comp3220-exam"</span>
-        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/exam"</span>
-        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages/exam"</span>
-        <span style="color: #729fcf;">:publishing-function</span> org-latex-publish-to-pdf
-        <span style="color: #729fcf;">:htmlized-source</span> t)
-       (<span style="color: #de7fa8;">"comp3220-homepage"</span>
-        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/master/homepage"</span>
-        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/comp3220/gh-pages/"</span>
-        <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-        <span style="color: #729fcf;">:htmlized-source</span> t)
-       (<span style="color: #de7fa8;">"comp3220"</span> <span style="color: #729fcf;">:components</span> (<span style="color: #de7fa8;">"comp3220-homepage"</span>
-                                <span style="color: #de7fa8;">"comp3220-slide"</span>
-                                <span style="color: #de7fa8;">"comp3220-homework"</span>
-                                <span style="color: #de7fa8;">"comp3220-exam"</span>))
-       (<span style="color: #de7fa8;">"malware-detection-doc"</span>
-        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/malware-detection/master"</span>
-        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/malware-detection/gh-pages"</span>
-        <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-        <span style="color: #729fcf;">:htmlized-source</span> t
-        <span style="color: #729fcf;">:completion-function</span>
-        (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-          (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
-                         <span style="color: #de7fa8;">"README.html"</span>
-                         <span style="color: #de7fa8;">"~/Documents/malware-detection/gh-pages"</span>))
-                (target (expand-file-name
-                         <span style="color: #de7fa8;">"index.html"</span>
-                         <span style="color: #de7fa8;">"~/Documents/malware-detection/gh-pages"</span>)))
-            (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
-                (<span style="color: #729fcf; font-weight: bold;">progn</span>
-                  (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
-                      (delete-file target))
-                  (rename-file source target))))))
-       (<span style="color: #de7fa8;">"malware-detection-static"</span>
-        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/malware-detection/master"</span>
-        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/malware-detection/gh-pages"</span>
-        <span style="color: #729fcf;">:publishing-function</span> org-publish-attachment
-        <span style="color: #729fcf;">:base-extension</span> <span style="color: #de7fa8;">"css</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">js</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">png</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">jpg</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">gif</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">pdf</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">svg"</span>
-        <span style="color: #729fcf;">:recursive</span> t)
-       (<span style="color: #de7fa8;">"malware-detection"</span> <span style="color: #729fcf;">:components</span> (<span style="color: #de7fa8;">"malware-detection-doc"</span>
-                                         <span style="color: #de7fa8;">"malware-detection-static"</span>))
-       (<span style="color: #de7fa8;">"abide"</span>
-        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/abide/master"</span>
-        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/abide/gh-pages"</span>
-        <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-        <span style="color: #729fcf;">:htmlized-source</span> t
-        <span style="color: #729fcf;">:completion-function</span>
-        (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-          (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
-                         <span style="color: #de7fa8;">"README.html"</span>
-                         <span style="color: #de7fa8;">"~/Documents/abide/gh-pages"</span>))
-                (target (expand-file-name
-                         <span style="color: #de7fa8;">"index.html"</span>
-                         <span style="color: #de7fa8;">"~/Documents/abide/gh-pages"</span>)))
-            (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
-                (<span style="color: #729fcf; font-weight: bold;">progn</span>
-                  (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
-                      (delete-file target))
-                  (rename-file source target))))))
-
-       (<span style="color: #de7fa8;">"rbm"</span>
-        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/rbm/master"</span>
-        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/rbm/gh-pages"</span>
-        <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-        <span style="color: #729fcf;">:htmlized-source</span> t
-        <span style="color: #729fcf;">:completion-function</span>
-        (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-          (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
-                         <span style="color: #de7fa8;">"README.html"</span>
-                         <span style="color: #de7fa8;">"~/Documents/rbm/gh-pages"</span>))
-                (target (expand-file-name
-                         <span style="color: #de7fa8;">"index.html"</span>
-                         <span style="color: #de7fa8;">"~/Documents/rbm/gh-pages"</span>)))
-            (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
-                (<span style="color: #729fcf; font-weight: bold;">progn</span>
-                  (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
-                      (delete-file target))
-                  (rename-file source target))))))
-
-       (<span style="color: #de7fa8;">"orgcss"</span>
-        <span style="color: #729fcf;">:base-directory</span> <span style="color: #de7fa8;">"~/Documents/orgcss/master/app"</span>
-        <span style="color: #729fcf;">:publishing-directory</span> <span style="color: #de7fa8;">"~/Documents/orgcss/master/dist"</span>
-        <span style="color: #729fcf;">:publishing-function</span> org-html-publish-to-html
-        <span style="color: #729fcf;">:htmlized-source</span> t
-        <span style="color: #729fcf;">:completion-function</span>
-        (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-          (<span style="color: #729fcf; font-weight: bold;">let</span> ((source (expand-file-name
-                         <span style="color: #de7fa8;">"README.html"</span>
-                         <span style="color: #de7fa8;">"~/Documents/orgcss/master/app"</span>))
-                (target (expand-file-name
-                         <span style="color: #de7fa8;">"index.html"</span>
-                         <span style="color: #de7fa8;">"~/Documents/orgcss/master/dist"</span>)))
-            (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p source)
-                (<span style="color: #729fcf; font-weight: bold;">progn</span>
-                  (<span style="color: #729fcf; font-weight: bold;">if</span> (file-exists-p target)
-                      (delete-file target))
-                  (rename-file source target)))))))))
+    (load-file <span style="color: #de7fa8;">"~/Dropbox/dotfiles/emacs.d/my-org-project.el"</span>))
 </pre>
 </div>
 </div>
@@ -929,9 +799,10 @@ separete section for all its related configuration.
           (expand-file-name <span style="color: #de7fa8;">"~/Dropbox/bibliography/notes"</span>))
     (setq helm-bibtex-notes-extension <span style="color: #de7fa8;">".org"</span>)
 
-    (setq helm-bibtex-pdf-open-function
-          (<span style="color: #729fcf; font-weight: bold;">lambda</span> (fpath)
-            (async-start-process <span style="color: #de7fa8;">"evince"</span> <span style="color: #de7fa8;">"/usr/bin/evince"</span> nil fpath))))
+    (<span style="color: #729fcf; font-weight: bold;">defun</span> <span style="color: #fcaf3e; font-weight: bold;">my-open-pdf-with-evince</span> (path)
+      <span style="color: #babdb6; font-style: italic;">"Open pdf files with `</span><span style="color: #73d216; font-style: italic;">evince</span><span style="color: #babdb6; font-style: italic;">' asynchroneously."</span>
+      (async-start-process <span style="color: #de7fa8;">"evince"</span> <span style="color: #de7fa8;">"/usr/bin/evince"</span> nil path))
+    (setq helm-bibtex-pdf-open-function #'my-open-pdf-with-evince))
 
   (<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">helm-files</span>))
 </pre>
@@ -939,8 +810,8 @@ separete section for all its related configuration.
 </div>
 </div>
 
-<div id="outline-container-orgheadline49" class="outline-3">
-<h3 id="sec:miscpac"><a id="orgheadline49"></a><span class="section-number-3">5.4</span> Miscellaneous Packages</h3>
+<div id="outline-container-orgheadline47" class="outline-3">
+<h3 id="sec:miscpac"><a id="orgheadline47"></a><span class="section-number-3">5.4</span> Miscellaneous Packages</h3>
 <div class="outline-text-3" id="text-sec:miscpac">
 <p>
 The followings are light yet serious functionalities.  Some of which
@@ -980,11 +851,8 @@ such people, usually to nothing.
 </div>
 
 <div id="outline-container-orgheadline17" class="outline-4">
-<h4 id="orgheadline17"><span class="section-number-4">5.4.2</span> Ace-jump</h4>
-</div>
-<div id="outline-container-orgheadline18" class="outline-4">
-<h4 id="orgheadline18"><span class="section-number-4">5.4.3</span> Ag</h4>
-<div class="outline-text-4" id="text-5-4-3">
+<h4 id="orgheadline17"><span class="section-number-4">5.4.2</span> Ag</h4>
+<div class="outline-text-4" id="text-5-4-2">
 <p>
 Search like crazy.  It is a code-searching tool alternative for ack
 related frontend, e.g., ack-and-a-half, which is not actively
@@ -1018,9 +886,9 @@ maintained anymore.  I included this package but never used before!!
 </div>
 </div>
 
-<div id="outline-container-orgheadline19" class="outline-4">
-<h4 id="orgheadline19"><span class="section-number-4">5.4.4</span> Anzu</h4>
-<div class="outline-text-4" id="text-5-4-4">
+<div id="outline-container-orgheadline18" class="outline-4">
+<h4 id="orgheadline18"><span class="section-number-4">5.4.3</span> Anzu</h4>
+<div class="outline-text-4" id="text-5-4-3">
 <p>
 Display in the modeline search information, i.e, <code>(cur/total)</code>,
 where <code>cur</code> is the current index of searched keyword and total is
@@ -1045,9 +913,9 @@ in Figure <a href="#orgparagraph1">1</a>.
 </div>
 </div>
 
-<div id="outline-container-orgheadline20" class="outline-4">
-<h4 id="orgheadline20"><span class="section-number-4">5.4.5</span> Appt</h4>
-<div class="outline-text-4" id="text-5-4-5">
+<div id="outline-container-orgheadline19" class="outline-4">
+<h4 id="orgheadline19"><span class="section-number-4">5.4.4</span> Appt</h4>
+<div class="outline-text-4" id="text-5-4-4">
 <blockquote>
 <p>
 The Emacs diary keeps track of appointments or other events on a
@@ -1105,9 +973,9 @@ Display the coming appointment in a notification popup.
 </div>
 </div>
 
-<div id="outline-container-orgheadline21" class="outline-4">
-<h4 id="orgheadline21"><span class="section-number-4">5.4.6</span> Async</h4>
-<div class="outline-text-4" id="text-5-4-6">
+<div id="outline-container-orgheadline20" class="outline-4">
+<h4 id="orgheadline20"><span class="section-number-4">5.4.5</span> Async</h4>
+<div class="outline-text-4" id="text-5-4-5">
 <p>
 Async in Emacs?  Cool!
 </p>
@@ -1122,9 +990,9 @@ Async in Emacs?  Cool!
 </div>
 </div>
 
-<div id="outline-container-orgheadline22" class="outline-4">
-<h4 id="orgheadline22"><span class="section-number-4">5.4.7</span> BBDB</h4>
-<div class="outline-text-4" id="text-5-4-7">
+<div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21"><span class="section-number-4">5.4.6</span> BBDB</h4>
+<div class="outline-text-4" id="text-5-4-6">
 <p>
 <a href="http://savannah.nongnu.org/projects/bbdb/">BBDB</a> (Insidious Big Brother Database) is a rolodex-like database
 program for GNU Emacs.  It is mainly used to store contacts.  And it
@@ -1150,9 +1018,9 @@ has nice integration with Gnus.
 </div>
 </div>
 
-<div id="outline-container-orgheadline23" class="outline-4">
-<h4 id="orgheadline23"><span class="section-number-4">5.4.8</span> Deft</h4>
-<div class="outline-text-4" id="text-5-4-8">
+<div id="outline-container-orgheadline22" class="outline-4">
+<h4 id="orgheadline22"><span class="section-number-4">5.4.7</span> Deft</h4>
+<div class="outline-text-4" id="text-5-4-7">
 <blockquote>
 <p>
 <a href="http://jblevins.org/projects/deft/">Deft</a> is an Emacs mode for quickly browsing, filtering, and editing
@@ -1178,9 +1046,9 @@ directories of plain text notes, inspired by <a href="http://notational.net/">No
 </div>
 </div>
 
-<div id="outline-container-orgheadline24" class="outline-4">
-<h4 id="orgheadline24"><span class="section-number-4">5.4.9</span> Dired</h4>
-<div class="outline-text-4" id="text-5-4-9">
+<div id="outline-container-orgheadline23" class="outline-4">
+<h4 id="orgheadline23"><span class="section-number-4">5.4.8</span> Dired</h4>
+<div class="outline-text-4" id="text-5-4-8">
 <p>
 It is a really cool bultin package of which I have not yet leveraged
 the full power.
@@ -1201,51 +1069,26 @@ the full power.
 </div>
 </div>
 
-<div id="outline-container-orgheadline25" class="outline-4">
-<h4 id="orgheadline25"><span class="section-number-4">5.4.10</span> Display-time</h4>
-<div class="outline-text-4" id="text-5-4-10">
+<div id="outline-container-orgheadline24" class="outline-4">
+<h4 id="orgheadline24"><span class="section-number-4">5.4.9</span> Display-time</h4>
+<div class="outline-text-4" id="text-5-4-9">
 <p>
-Display time and unread mail notification, if not in terminal, in
-the mode line.
+Display time and unread mail notification in the mode line.  The
+unread mail notification is configured in <a href="#sec:gnus">5.1</a>.
 </p>
 
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq display-time-24hr-format t display-time-day-and-date nil)
-
-(<span style="color: #729fcf; font-weight: bold;">when</span> (display-graphic-p)
-
-  (setq display-time-mail-function
-        (<span style="color: #729fcf; font-weight: bold;">lambda</span> () <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">Gnus launched?</span>
-          (<span style="color: #729fcf; font-weight: bold;">catch</span> '<span style="color: #73d216;">break</span>
-            (mapc
-             (<span style="color: #729fcf; font-weight: bold;">lambda</span> (entry)
-               (<span style="color: #729fcf; font-weight: bold;">let</span> ((group (car entry)))
-                 (<span style="color: #729fcf; font-weight: bold;">when</span> (&lt; (gnus-group-level group) 2)
-                   (<span style="color: #729fcf; font-weight: bold;">let</span> ((unread (gnus-group-unread group)))
-                     (<span style="color: #729fcf; font-weight: bold;">if</span> (and (numberp unread)
-                              (&gt; unread 0))
-                         (<span style="color: #729fcf; font-weight: bold;">throw</span> '<span style="color: #73d216;">break</span> t))))))
-             gnus-newsrc-alist)
-            nil)))
-
-  (setq display-time-mail-string (concat <span style="color: #de7fa8;">" "</span> [#xF003])
-        display-time-use-mail-icon nil
-        <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">display-time-mail-icon</span>
-        <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">`(image :type png</span>
-        <span style="color: #babdb6; font-style: italic;">;;         </span><span style="color: #babdb6; font-style: italic;">:file ,(expand-file-name "mail-unread.png" my-icons-dir)</span>
-        <span style="color: #babdb6; font-style: italic;">;;         </span><span style="color: #babdb6; font-style: italic;">:ascent center)</span>
-        ))
-
 (display-time)
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline26" class="outline-4">
-<h4 id="orgheadline26"><span class="section-number-4">5.4.11</span> Drag-stuff-mode</h4>
-<div class="outline-text-4" id="text-5-4-11">
+<div id="outline-container-orgheadline25" class="outline-4">
+<h4 id="orgheadline25"><span class="section-number-4">5.4.10</span> Drag-stuff-mode</h4>
+<div class="outline-text-4" id="text-5-4-10">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">drag-stuff</span>
@@ -1255,9 +1098,9 @@ the mode line.
 </div>
 </div>
 
-<div id="outline-container-orgheadline27" class="outline-4">
-<h4 id="orgheadline27"><span class="section-number-4">5.4.12</span> Eshell</h4>
-<div class="outline-text-4" id="text-5-4-12">
+<div id="outline-container-orgheadline26" class="outline-4">
+<h4 id="orgheadline26"><span class="section-number-4">5.4.11</span> Eshell</h4>
+<div class="outline-text-4" id="text-5-4-11">
 <p>
 Emacs shell program.  Very handy for remote console access.
 </p>
@@ -1274,9 +1117,9 @@ Emacs shell program.  Very handy for remote console access.
 </div>
 </div>
 
-<div id="outline-container-orgheadline28" class="outline-4">
-<h4 id="orgheadline28"><span class="section-number-4">5.4.13</span> ESS</h4>
-<div class="outline-text-4" id="text-5-4-13">
+<div id="outline-container-orgheadline27" class="outline-4">
+<h4 id="orgheadline27"><span class="section-number-4">5.4.12</span> ESS</h4>
+<div class="outline-text-4" id="text-5-4-12">
 <blockquote>
 <p>
 <a href="http://ess.r-project.org/">ESS</a> (Emacs Speaks Statistics) is an add-on package for Emacs text
@@ -1294,27 +1137,26 @@ I think <a href="http://julialang.org/">Julia</a> is also supported.
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">ess-site</span>
   <span style="color: #729fcf;">:config</span>
-  (add-hook 'ess-mode-hook
-            (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-              (setq ess-help-own-frame 'one)
-              (setq ess-indent-level 2)
-              (setq ess-first-continued-statement-offset 2)
-              (setq ess-continued-statement-offset 0)
-              (setq ess-tab-complete-in-script t)
-              (setq ess-first-tab-never-complete
-                    'symbol-or-paren-or-punct)))
+  (<span style="color: #729fcf; font-weight: bold;">defun</span> <span style="color: #fcaf3e; font-weight: bold;">my-ess-init</span> ()
+    <span style="color: #babdb6; font-style: italic;">"Init my ess mode."</span>
+    (setq ess-help-own-frame 'one)
+    (setq ess-indent-level 2)
+    (setq ess-first-continued-statement-offset 2)
+    (setq ess-continued-statement-offset 0)
+    (setq ess-tab-complete-in-script t)
+    (setq ess-first-tab-never-complete
+          'symbol-or-paren-or-punct))
 
-  (add-hook 'inferior-ess-mode-hook
-            (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-              (smartparens-mode 1))))
+  (add-hook 'ess-mode-hook #'my-ess-init)
+  (add-hook 'inferior-ess-mode-hook #'turn-on-smartparens-mode))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline29" class="outline-4">
-<h4 id="orgheadline29"><span class="section-number-4">5.4.14</span> Expand-region</h4>
-<div class="outline-text-4" id="text-5-4-14">
+<div id="outline-container-orgheadline28" class="outline-4">
+<h4 id="orgheadline28"><span class="section-number-4">5.4.13</span> Expand-region</h4>
+<div class="outline-text-4" id="text-5-4-13">
 <p>
 Select the region in a DWIW style.
 </p>
@@ -1328,9 +1170,9 @@ Select the region in a DWIW style.
 </div>
 </div>
 
-<div id="outline-container-orgheadline30" class="outline-4">
-<h4 id="orgheadline30"><span class="section-number-4">5.4.15</span> Flycheck</h4>
-<div class="outline-text-4" id="text-5-4-15">
+<div id="outline-container-orgheadline29" class="outline-4">
+<h4 id="orgheadline29"><span class="section-number-4">5.4.14</span> Flycheck</h4>
+<div class="outline-text-4" id="text-5-4-14">
 <p>
 Eamcs Front-end for various languages syntax checker.
 </p>
@@ -1341,24 +1183,24 @@ Eamcs Front-end for various languages syntax checker.
   <span style="color: #729fcf;">:if</span> (display-graphic-p)
   <span style="color: #729fcf;">:bind</span> (<span style="color: #de7fa8;">"C-c f"</span> . flycheck-mode)
   <span style="color: #729fcf;">:config</span>
-  (setq flycheck-status-changed-functions nil)
-  (add-hook 'flycheck-status-changed-functions
-            (<span style="color: #729fcf; font-weight: bold;">lambda</span> (status)
-              (<span style="color: #729fcf; font-weight: bold;">let</span> ((fc-icon
-                     (<span style="color: #729fcf; font-weight: bold;">cond</span>
-                      ((eq status 'running) [#xF0F4])
-                      ((eq status 'errored) [#xF00C])
-                      ((eq status 'finished) [#xF00D]))))
-                (diminish #'flycheck-mode (concat <span style="color: #de7fa8;">" "</span> fc-icon))
-                (force-mode-line-update)))))
+  (<span style="color: #729fcf; font-weight: bold;">defun</span> <span style="color: #fcaf3e; font-weight: bold;">my-on-flycheck-status-change</span> (status)
+    (<span style="color: #729fcf; font-weight: bold;">let</span> ((fc-icon
+           (<span style="color: #729fcf; font-weight: bold;">cond</span>
+            ((eq status 'running) [#xF0F4])
+            ((eq status 'errored) [#xF00C])
+            ((eq status 'finished) [#xF00D]))))
+      (diminish #'flycheck-mode (concat <span style="color: #de7fa8;">" "</span> fc-icon))
+      (force-mode-line-update)))
+
+  (add-hook 'flycheck-status-changed-functions #'my-on-flycheck-status-change))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline31" class="outline-4">
-<h4 id="orgheadline31"><span class="section-number-4">5.4.16</span> Javascript</h4>
-<div class="outline-text-4" id="text-5-4-16">
+<div id="outline-container-orgheadline30" class="outline-4">
+<h4 id="orgheadline30"><span class="section-number-4">5.4.15</span> Javascript</h4>
+<div class="outline-text-4" id="text-5-4-15">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">js2-mode</span>
@@ -1374,9 +1216,9 @@ Eamcs Front-end for various languages syntax checker.
 </div>
 </div>
 
-<div id="outline-container-orgheadline32" class="outline-4">
-<h4 id="orgheadline32"><span class="section-number-4">5.4.17</span> Hi-mode</h4>
-<div class="outline-text-4" id="text-5-4-17">
+<div id="outline-container-orgheadline31" class="outline-4">
+<h4 id="orgheadline31"><span class="section-number-4">5.4.16</span> Hi-mode</h4>
+<div class="outline-text-4" id="text-5-4-16">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-hook 'hi-lock-mode-hook
@@ -1386,9 +1228,9 @@ Eamcs Front-end for various languages syntax checker.
 </div>
 </div>
 
-<div id="outline-container-orgheadline33" class="outline-4">
-<h4 id="orgheadline33"><span class="section-number-4">5.4.18</span> Ibuffer</h4>
-<div class="outline-text-4" id="text-5-4-18">
+<div id="outline-container-orgheadline32" class="outline-4">
+<h4 id="orgheadline32"><span class="section-number-4">5.4.17</span> Ibuffer</h4>
+<div class="outline-text-4" id="text-5-4-17">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">ibuffer</span>
@@ -1427,7 +1269,8 @@ Eamcs Front-end for various languages syntax checker.
                 (name . <span style="color: #de7fa8;">"\\.[ch]</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">(</span><span style="color: #de7fa8;">pp</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">xx</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">|</span><span style="color: #de7fa8;">\\+\\+</span><span style="color: #de7fa8; font-weight: bold;">\\</span><span style="color: #de7fa8; font-weight: bold;">)</span><span style="color: #de7fa8;">?"</span>)
                 (mode . python-mode)
                 (name . <span style="color: #de7fa8;">"\\.ya?ml"</span>)
-                (name . <span style="color: #de7fa8;">"\\.sql"</span>)))
+                (name . <span style="color: #de7fa8;">"\\.R"</span>)
+                (name . <span style="color: #de7fa8;">"\\.lua"</span>)))
            (<span style="color: #de7fa8;">"Mail"</span>
             (or (mode . message-mode)
                 (mode . mail-mode)
@@ -1451,7 +1294,9 @@ Eamcs Front-end for various languages syntax checker.
                 (mode . Info-mode)
                 (mode . help-mode)
                 (mode . ess-help-mode)
-                (name . <span style="color: #de7fa8;">"^\\*scratch\\*$"</span>))))))
+                (name . <span style="color: #de7fa8;">"^\\*scratch\\*$"</span>)))
+           (<span style="color: #de7fa8;">"Helm"</span>
+            (or (mode . helm-mode))))))
 
   (add-hook
    'ibuffer-mode-hook
@@ -1481,55 +1326,9 @@ Eamcs Front-end for various languages syntax checker.
 </div>
 </div>
 
-<div id="outline-container-orgheadline34" class="outline-4">
-<h4 id="orgheadline34"><span class="section-number-4">5.4.19</span> Ido&#xa0;&#xa0;&#xa0;<span class="tag"><span class="deprecated">deprecated</span></span></h4>
-<div class="outline-text-4" id="text-5-4-19">
-<p>
-I just switched from <code>ido</code> to <code>helm</code>.  It just feel more natural
-working with <code>helm</code>.  What's more, <code>helm</code> is really <i>ubiquituous</i>.
-</p>
-
-<p>
-The following configuration is only kept for backup.  They are
-already deprecated.
-</p>
-
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">ido</span>
-  <span style="color: #729fcf;">:config</span>
-  (ido-mode 'both)
-
-  (setq ido-save-directory-list-file
-        (expand-file-name <span style="color: #de7fa8;">"idolast"</span> my-tmp)
-        <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">ignore these buffers during completion</span>
-        ido-ignore-buffers
-        '(<span style="color: #de7fa8;">"\\` "</span> <span style="color: #de7fa8;">"^\*Mess"</span> <span style="color: #de7fa8;">"^\*Back"</span> <span style="color: #de7fa8;">".*Completion"</span> <span style="color: #de7fa8;">"^\*Ido"</span> <span style="color: #de7fa8;">"^\*trace"</span> <span style="color: #de7fa8;">"^\*compilation"</span> <span style="color: #de7fa8;">"^\*GTAGS"</span> <span style="color: #de7fa8;">"^session\.*"</span> <span style="color: #de7fa8;">"^\*"</span>)
-        <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">case insensitive</span>
-        ido-case-fold t
-        <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">remember last directory</span>
-        ido-enable-last-directory-history t
-        ido-max-work-file-list 50
-        ido-use-filename-at-point nil
-        ido-use-url-at-point nil
-        ido-enable-flex-matching nil
-        ido-max-prospects 6
-        ido-confirm-unique-completion t)
-
-  <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">increase minibuffer size when ido completion is active</span>
-  (add-hook 'ido-minibuffer-setup-hook
-            (function
-             (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-               (make-local-variable
-                'resize-minibuffer-window-max-height)))))
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgheadline35" class="outline-4">
-<h4 id="orgheadline35"><span class="section-number-4">5.4.20</span> Lua-mode</h4>
-<div class="outline-text-4" id="text-5-4-20">
+<div id="outline-container-orgheadline33" class="outline-4">
+<h4 id="orgheadline33"><span class="section-number-4">5.4.18</span> Lua-mode</h4>
+<div class="outline-text-4" id="text-5-4-18">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">lua-mode</span>
@@ -1547,9 +1346,9 @@ already deprecated.
 </div>
 </div>
 
-<div id="outline-container-orgheadline36" class="outline-4">
-<h4 id="orgheadline36"><span class="section-number-4">5.4.21</span> Midnight</h4>
-<div class="outline-text-4" id="text-5-4-21">
+<div id="outline-container-orgheadline34" class="outline-4">
+<h4 id="orgheadline34"><span class="section-number-4">5.4.19</span> Midnight</h4>
+<div class="outline-text-4" id="text-5-4-19">
 <p>
 What is <code>midnight-mode</code> for?  Included but never used&#x2026;
 </p>
@@ -1562,9 +1361,9 @@ What is <code>midnight-mode</code> for?  Included but never used&#x2026;
 </div>
 </div>
 
-<div id="outline-container-orgheadline37" class="outline-4">
-<h4 id="orgheadline37"><span class="section-number-4">5.4.22</span> Multiple-cursors</h4>
-<div class="outline-text-4" id="text-5-4-22">
+<div id="outline-container-orgheadline35" class="outline-4">
+<h4 id="orgheadline35"><span class="section-number-4">5.4.20</span> Multiple-cursors</h4>
+<div class="outline-text-4" id="text-5-4-20">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">multiple-cursors</span>
@@ -1589,9 +1388,9 @@ What is <code>midnight-mode</code> for?  Included but never used&#x2026;
 </div>
 </div>
 
-<div id="outline-container-orgheadline38" class="outline-4">
-<h4 id="orgheadline38"><span class="section-number-4">5.4.23</span> Projectile</h4>
-<div class="outline-text-4" id="text-5-4-23">
+<div id="outline-container-orgheadline36" class="outline-4">
+<h4 id="orgheadline36"><span class="section-number-4">5.4.21</span> Projectile</h4>
+<div class="outline-text-4" id="text-5-4-21">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">projectile</span>
@@ -1606,9 +1405,9 @@ What is <code>midnight-mode</code> for?  Included but never used&#x2026;
 </div>
 </div>
 
-<div id="outline-container-orgheadline39" class="outline-4">
-<h4 id="orgheadline39"><span class="section-number-4">5.4.24</span> Recentf</h4>
-<div class="outline-text-4" id="text-5-4-24">
+<div id="outline-container-orgheadline37" class="outline-4">
+<h4 id="orgheadline37"><span class="section-number-4">5.4.22</span> Recentf</h4>
+<div class="outline-text-4" id="text-5-4-22">
 <p>
 Save recently opened files.
 </p>
@@ -1629,9 +1428,9 @@ Save recently opened files.
 </div>
 </div>
 
-<div id="outline-container-orgheadline40" class="outline-4">
-<h4 id="orgheadline40"><span class="section-number-4">5.4.25</span> Savehist</h4>
-<div class="outline-text-4" id="text-5-4-25">
+<div id="outline-container-orgheadline38" class="outline-4">
+<h4 id="orgheadline38"><span class="section-number-4">5.4.23</span> Savehist</h4>
+<div class="outline-text-4" id="text-5-4-23">
 <p>
 Save minibuffer history.
 </p>
@@ -1649,9 +1448,9 @@ Save minibuffer history.
 </div>
 </div>
 
-<div id="outline-container-orgheadline41" class="outline-4">
-<h4 id="orgheadline41"><span class="section-number-4">5.4.26</span> Saveplace</h4>
-<div class="outline-text-4" id="text-5-4-26">
+<div id="outline-container-orgheadline39" class="outline-4">
+<h4 id="orgheadline39"><span class="section-number-4">5.4.24</span> Saveplace</h4>
+<div class="outline-text-4" id="text-5-4-24">
 <p>
 Save places in a file so that you can go back when you reopen it.
 </p>
@@ -1668,9 +1467,9 @@ Save places in a file so that you can go back when you reopen it.
 </div>
 </div>
 
-<div id="outline-container-orgheadline42" class="outline-4">
-<h4 id="orgheadline42"><span class="section-number-4">5.4.27</span> Smartparens</h4>
-<div class="outline-text-4" id="text-5-4-27">
+<div id="outline-container-orgheadline40" class="outline-4">
+<h4 id="orgheadline40"><span class="section-number-4">5.4.25</span> Smartparens</h4>
+<div class="outline-text-4" id="text-5-4-25">
 <blockquote>
 <p>
 Smartparens is minor mode for Emacs that <i>deals with parens pairs
@@ -1782,9 +1581,9 @@ With <i>smartparens</i>, I may place cursor at the opening bracket of
 </div>
 </div>
 
-<div id="outline-container-orgheadline43" class="outline-4">
-<h4 id="orgheadline43"><span class="section-number-4">5.4.28</span> Tex</h4>
-<div class="outline-text-4" id="text-5-4-28">
+<div id="outline-container-orgheadline41" class="outline-4">
+<h4 id="orgheadline41"><span class="section-number-4">5.4.26</span> Tex</h4>
+<div class="outline-text-4" id="text-5-4-26">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq TeX-auto-save t)
@@ -1794,10 +1593,10 @@ With <i>smartparens</i>, I may place cursor at the opening bracket of
 (setq bibtex-align-at-equal-sign t)
 (setq bibtex-text-indentation 20)
 
-(add-hook 'bibtex-mode-hook
-          (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-            (local-set-key (kbd <span style="color: #de7fa8;">"C-c \\"</span>) 'bibtex-fill-entry)
-            (setq fill-column 140)))
+(<span style="color: #729fcf; font-weight: bold;">defun</span> <span style="color: #fcaf3e; font-weight: bold;">my-init-bibtex-mode</span> ()
+  (local-set-key (kbd <span style="color: #de7fa8;">"C-c \\"</span>) 'bibtex-fill-entry)
+  (setq fill-column 140))
+(add-hook 'bibtex-mode-hook #'my-init-bibtex-mode)
 
 (<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">reftex</span>
   <span style="color: #729fcf;">:diminish</span> reftex-mode
@@ -1807,8 +1606,9 @@ With <i>smartparens</i>, I may place cursor at the opening bracket of
   (setq reftex-plug-into-AUCTeX t
         reftex-ref-style-default-list '(<span style="color: #de7fa8;">"Cleveref"</span> <span style="color: #de7fa8;">"Hyperref"</span> <span style="color: #de7fa8;">"Fancyref"</span>)
         reftex-default-bibliography
-        '(<span style="color: #de7fa8;">"/home/gongzhitaao/Dropbox/bib/nn.bib"</span>
-          <span style="color: #de7fa8;">"/home/gongzhitaao/Dropbox/bib/sp.bib"</span>)))
+        '(<span style="color: #de7fa8;">"/home/gongzhitaao/Dropbox/bibliography/nn.bib"</span>
+          <span style="color: #de7fa8;">"/home/gongzhitaao/Dropbox/bibliography/sp.bib"</span>
+          <span style="color: #de7fa8;">"/home/gongzhitaao/Dropbox/bibliography/stats.bib"</span>)))
 
 (add-hook 'latex-mode-hook 'turn-on-auto-fill)
 (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
@@ -1817,9 +1617,9 @@ With <i>smartparens</i>, I may place cursor at the opening bracket of
 </div>
 </div>
 
-<div id="outline-container-orgheadline44" class="outline-4">
-<h4 id="orgheadline44"><span class="section-number-4">5.4.29</span> TRAMP</h4>
-<div class="outline-text-4" id="text-5-4-29">
+<div id="outline-container-orgheadline42" class="outline-4">
+<h4 id="orgheadline42"><span class="section-number-4">5.4.27</span> TRAMP</h4>
+<div class="outline-text-4" id="text-5-4-27">
 <p>
 Use <i>TRAMP</i> (Transparent Remote Access, Multiple Protocols) to edit
 remote files.
@@ -1842,9 +1642,9 @@ included this package but never knew it before!!
 </div>
 </div>
 
-<div id="outline-container-orgheadline45" class="outline-4">
-<h4 id="orgheadline45"><span class="section-number-4">5.4.30</span> Undo-tree</h4>
-<div class="outline-text-4" id="text-5-4-30">
+<div id="outline-container-orgheadline43" class="outline-4">
+<h4 id="orgheadline43"><span class="section-number-4">5.4.28</span> Undo-tree</h4>
+<div class="outline-text-4" id="text-5-4-28">
 <p>
 Visualize the undo list in a tree-like structure for easy undo and
 redo.
@@ -1862,9 +1662,9 @@ redo.
 </div>
 </div>
 
-<div id="outline-container-orgheadline46" class="outline-4">
-<h4 id="orgheadline46"><span class="section-number-4">5.4.31</span> Uniquify</h4>
-<div class="outline-text-4" id="text-5-4-31">
+<div id="outline-container-orgheadline44" class="outline-4">
+<h4 id="orgheadline44"><span class="section-number-4">5.4.29</span> Uniquify</h4>
+<div class="outline-text-4" id="text-5-4-29">
 <p>
 Distinguish buffers with the same name.
 </p>
@@ -1882,9 +1682,9 @@ Distinguish buffers with the same name.
 </div>
 </div>
 
-<div id="outline-container-orgheadline47" class="outline-4">
-<h4 id="orgheadline47"><span class="section-number-4">5.4.32</span> Volatile-highlights</h4>
-<div class="outline-text-4" id="text-5-4-32">
+<div id="outline-container-orgheadline45" class="outline-4">
+<h4 id="orgheadline45"><span class="section-number-4">5.4.30</span> Volatile-highlights</h4>
+<div class="outline-text-4" id="text-5-4-30">
 <p>
 This package highlights changes just made to the buffer and the
 highlights dispear at the next command.  It gives you a visual
@@ -1902,9 +1702,9 @@ feedback what is being changed.
 </div>
 </div>
 
-<div id="outline-container-orgheadline48" class="outline-4">
-<h4 id="orgheadline48"><span class="section-number-4">5.4.33</span> Writeroom-mode</h4>
-<div class="outline-text-4" id="text-5-4-33">
+<div id="outline-container-orgheadline46" class="outline-4">
+<h4 id="orgheadline46"><span class="section-number-4">5.4.31</span> Writeroom-mode</h4>
+<div class="outline-text-4" id="text-5-4-31">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">use-package</span> <span style="color: #73d216;">writeroom-mode</span>
@@ -1917,8 +1717,8 @@ feedback what is being changed.
 </div>
 </div>
 
-<div id="outline-container-orgheadline58" class="outline-2">
-<h2 id="sec:editorsetting"><a id="orgheadline58"></a><span class="section-number-2">6</span> Editor Setting</h2>
+<div id="outline-container-orgheadline56" class="outline-2">
+<h2 id="sec:editorsetting"><a id="orgheadline56"></a><span class="section-number-2">6</span> Editor Setting</h2>
 <div class="outline-text-2" id="text-sec:editorsetting">
 <p>
 After the above preparations, we continue to customize the default
@@ -1958,8 +1758,8 @@ set after loading the themes.
 </div>
 </div>
 
-<div id="outline-container-orgheadline51" class="outline-3">
-<h3 id="sec:encoding_font"><a id="orgheadline51"></a><span class="section-number-3">6.1</span> Encoding and Font</h3>
+<div id="outline-container-orgheadline49" class="outline-3">
+<h3 id="sec:encoding_font"><a id="orgheadline49"></a><span class="section-number-3">6.1</span> Encoding and Font</h3>
 <div class="outline-text-3" id="text-sec:encoding_font">
 <p>
 First of all, it is the encoding system that matters.
@@ -2003,8 +1803,8 @@ Then comes the font for both English and Chinese.
 </div>
 </div>
 
-<div id="outline-container-orgheadline52" class="outline-3">
-<h3 id="sec:default_behaviour"><a id="orgheadline52"></a><span class="section-number-3">6.2</span> Default Behaviours</h3>
+<div id="outline-container-orgheadline50" class="outline-3">
+<h3 id="sec:default_behaviour"><a id="orgheadline50"></a><span class="section-number-3">6.2</span> Default Behaviours</h3>
 <div class="outline-text-3" id="text-sec:default_behaviour">
 <p>
 Next is the tab thing.  Although I do not use <code>\t</code> for indentation, I
@@ -2046,10 +1846,10 @@ Cleanup spaces and write timestamp if needed.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-hook 'before-save-hook
-          (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-            (delete-trailing-whitespace)
-            (time-stamp)))
+<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">defun</span> <span style="color: #fcaf3e; font-weight: bold;">my-cleanup-file</span> ()
+  (delete-trailing-whitespace)
+  (time-stamp))
+(add-hook 'before-save-hook #'my-cleanup-file)
 
 (setq tab-always-indent 'complete)
 (blink-cursor-mode 0)
@@ -2214,13 +2014,13 @@ reasons, <code>auto-fill-mode</code> is named by "auto-fill-function".
 </div>
 </div>
 
-<div id="outline-container-orgheadline57" class="outline-3">
-<h3 id="sec:key"><a id="orgheadline57"></a><span class="section-number-3">6.3</span> Key bindings</h3>
+<div id="outline-container-orgheadline55" class="outline-3">
+<h3 id="sec:key"><a id="orgheadline55"></a><span class="section-number-3">6.3</span> Key bindings</h3>
 <div class="outline-text-3" id="text-sec:key">
 </div>
 
-<div id="outline-container-orgheadline53" class="outline-4">
-<h4 id="orgheadline53"><span class="section-number-4">6.3.1</span> Function Key Bindings</h4>
+<div id="outline-container-orgheadline51" class="outline-4">
+<h4 id="orgheadline51"><span class="section-number-4">6.3.1</span> Function Key Bindings</h4>
 <div class="outline-text-4" id="text-6-3-1">
 <p>
 Keybindings for <kbd>Fn</kbd> keys.
@@ -2240,8 +2040,8 @@ Keybindings for <kbd>Fn</kbd> keys.
 </div>
 </div>
 
-<div id="outline-container-orgheadline54" class="outline-4">
-<h4 id="orgheadline54"><span class="section-number-4">6.3.2</span> Improved Standard Bindings</h4>
+<div id="outline-container-orgheadline52" class="outline-4">
+<h4 id="orgheadline52"><span class="section-number-4">6.3.2</span> Improved Standard Bindings</h4>
 <div class="outline-text-4" id="text-6-3-2">
 <div class="org-src-container">
 
@@ -2257,8 +2057,8 @@ Keybindings for <kbd>Fn</kbd> keys.
 </div>
 </div>
 
-<div id="outline-container-orgheadline55" class="outline-4">
-<h4 id="orgheadline55"><span class="section-number-4">6.3.3</span> User Key Bindings</h4>
+<div id="outline-container-orgheadline53" class="outline-4">
+<h4 id="orgheadline53"><span class="section-number-4">6.3.3</span> User Key Bindings</h4>
 <div class="outline-text-4" id="text-6-3-3">
 <p>
 User key bindings usually begin with <kbd>C-c</kbd>.
@@ -2266,19 +2066,17 @@ User key bindings usually begin with <kbd>C-c</kbd>.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">defun</span> <span style="color: #fcaf3e; font-weight: bold;">clear-shell</span> ()
+<pre class="src src-emacs-lisp"><span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-c a -- my-ag-map</span>
+<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-c d -- drag-stuff-mode</span>
+
+(<span style="color: #729fcf; font-weight: bold;">defun</span> <span style="color: #fcaf3e; font-weight: bold;">clear-shell</span> ()
+  <span style="color: #babdb6; font-style: italic;">"Clear shell window."</span>
    (interactive)
    (<span style="color: #729fcf; font-weight: bold;">let</span> ((old-max comint-buffer-maximum-size))
      (setq comint-buffer-maximum-size 0)
      (comint-truncate-buffer)
      (setq comint-buffer-maximum-size old-max)))
-</pre>
-</div>
 
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp"><span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-c a -- my-ag-map</span>
-<span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-c d -- drag-stuff-mode</span>
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c c"</span>) #'clear-shell)
 <span style="color: #babdb6; font-style: italic;">;; </span><span style="color: #babdb6; font-style: italic;">C-c f -- flycheck-mode</span>
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c g"</span>) #'ace-jump-mode)
@@ -2292,18 +2090,6 @@ User key bindings usually begin with <kbd>C-c</kbd>.
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c ,"</span>) #'color-identifiers-mode)
 
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c C-="</span>) #'align-regexp)
-(global-set-key (kbd <span style="color: #de7fa8;">"C-c C-/"</span>)
-                (function
-                 (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-                   (interactive)
-                   (my-apply-region-or-line
-                    'comment-or-uncomment-region))))
-(global-set-key (kbd <span style="color: #de7fa8;">"C-c C-\\"</span>)
-                (function
-                 (<span style="color: #729fcf; font-weight: bold;">lambda</span> ()
-                   (interactive)
-                   (my-apply-region-or-para
-                    'indent-region))))
 
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c &lt;left&gt;"</span>) #'decrease-left-margin)
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c &lt;right&gt;"</span>) #'increase-left-margin)
@@ -2311,11 +2097,28 @@ User key bindings usually begin with <kbd>C-c</kbd>.
 (global-set-key (kbd <span style="color: #de7fa8;">"C-c C-&lt;right&gt;"</span>) #'increase-left-margin)
 </pre>
 </div>
+
+<p>
+Since most of the time <kbd>C-c C-c</kbd> is unavailable, and
+<kbd>C-c \</kbd> is used in Org mode, I have to choose
+<kbd>C-x</kbd> prefix.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">defun</span> <span style="color: #fcaf3e; font-weight: bold;">my-comment-or-uncomment-region</span> ()
+  <span style="color: #babdb6; font-style: italic;">"Comment a region or a line if no region is marked."</span>
+  (interactive)
+  (my-apply-region-or-line #'comment-or-uncomment-region))
+(global-set-key (kbd <span style="color: #de7fa8;">"C-x \\"</span>) #'my-comment-or-uncomment-region)
+(global-set-key (kbd <span style="color: #de7fa8;">"C-x C-\\"</span>) #'my-comment-or-uncomment-region)
+</pre>
+</div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline56" class="outline-4">
-<h4 id="orgheadline56"><span class="section-number-4">6.3.4</span> Key logger</h4>
+<div id="outline-container-orgheadline54" class="outline-4">
+<h4 id="orgheadline54"><span class="section-number-4">6.3.4</span> Key logger</h4>
 <div class="outline-text-4" id="text-6-3-4">
 <p>
 Sometimes I want to analyze my Emacs key press frequency.  The
@@ -2327,10 +2130,19 @@ configuration files.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">when</span> display-graphic-p
+<pre class="src src-emacs-lisp">(<span style="color: #729fcf; font-weight: bold;">when</span> (display-graphic-p)
+
   (open-dribble-file
    (expand-file-name
-    (format-time-string <span style="color: #de7fa8;">"~/.gongzhitaao/emacs.d/keylog/key-%FT%H%M%S.log"</span>))))
+    (format-time-string <span style="color: #de7fa8;">"~/.emacs.d/keylog/key-%FT%H%M%S.log"</span>)))
+
+  (<span style="color: #729fcf; font-weight: bold;">cl-defun</span> <span style="color: #fcaf3e; font-weight: bold;">my-sync-keylog</span>
+      (<span style="color: #fce94f; font-weight: bold;">&amp;optional</span>
+       (source (expand-file-name <span style="color: #de7fa8;">"~/.emacs.d/keylog/"</span>))
+       (target (expand-file-name <span style="color: #de7fa8;">"~/Dropbox/dotfiles/emacs.d/keylog"</span>)))
+    (async-shell-command (format <span style="color: #de7fa8;">"rsync -rp %s %s"</span> source target)))
+
+  (add-hook 'kill-emacs-hook #'my-sync-keylog))
 </pre>
 </div>
 </div>
@@ -2367,7 +2179,7 @@ As a side note, I guess his blog style might be adopted from
 <div id="postamble" class="status">
 <a class="author"
          href="http://gongzhitaao.org">Zhitao Gong</a> / <span
-         class="date">2015-11-21 Sat 10:13</span><span class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.3.2)</span>
+         class="date">2015-11-22 Sun 16:16</span><span class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.3.2)</span>
 </div>
 </body>
 </html>
